@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어 관리 > 보도자료 > 상세</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 헤더 */
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            flex: 1;
+            margin-top: 120px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 폼 그룹 */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group label.required::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            background-color: #f8f9fa;
+            color: #666;
+        }
+
+        .form-control:not([readonly]):not([disabled]) {
+            background-color: white;
+            color: #333;
+        }
+
+        /* 수정 모드에서 강제로 활성화 */
+        .edit-mode input[type="text"],
+        .edit-mode input[type="date"],
+        .edit-mode select {
+            background-color: white !important;
+            color: #333 !important;
+            cursor: text !important;
+        }
+
+        .edit-mode input[type="radio"] {
+            cursor: pointer !important;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+
+        /* 라디오 버튼 그룹 */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+        }
+
+        .radio-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: default;
+        }
+
+        /* 수정 모드에서 라디오 버튼 활성화 */
+        .edit-mode .radio-item input[type="radio"] {
+            pointer-events: auto !important;
+        }
+
+        .edit-mode .radio-item label {
+            cursor: pointer !important;
+        }
+
+        /* 리치 텍스트 에디터 */
+        .rich-editor {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+
+        .editor-toolbar {
+            background: #e9ecef;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+
+        .editor-btn {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: not-allowed;
+            border-radius: 3px;
+            font-size: 12px;
+            transition: all 0.2s;
+            opacity: 0.5;
+        }
+
+        .editor-content {
+            min-height: 300px;
+            padding: 15px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #666;
+        }
+
+        /* 파일 업로드 */
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.2s;
+        }
+
+        .file-upload.has-file {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .file-info {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* 파일 힌트 */
+        .file-hint {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 첨부파일 리스트 */
+        .attachment-list {
+            margin-top: 15px;
+        }
+
+        .attachment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .attachment-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attachment-name {
+            font-weight: 500;
+        }
+
+        .attachment-size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 날짜/시간 입력 */
+        .datetime-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .datetime-group .form-control {
+            width: auto;
+            min-width: 120px;
+        }
+
+        /* 액션 버튼 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* 수정 모드 스타일 - 최강력 적용 */
+        .edit-mode .form-control,
+        .edit-mode input[type="text"],
+        .edit-mode input[type="date"],
+        .edit-mode select {
+            background-color: white !important;
+            color: #333 !important;
+            cursor: text !important;
+        }
+
+        .edit-mode .form-control[readonly],
+        .edit-mode input[readonly] {
+            background-color: white !important;
+            color: #333 !important;
+            cursor: text !important;
+        }
+
+        .edit-mode .form-control[disabled],
+        .edit-mode select[disabled] {
+            background-color: white !important;
+            color: #333 !important;
+            cursor: text !important;
+        }
+
+        .edit-mode .editor-toolbar {
+            background: #f8f9fa !important;
+            opacity: 1 !important;
+        }
+
+        .edit-mode .editor-btn {
+            cursor: pointer !important;
+            opacity: 1 !important;
+        }
+
+        .edit-mode .editor-content {
+            background-color: white !important;
+            color: #333 !important;
+        }
+
+        .edit-mode .radio-item input[type="radio"] {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+        }
+
+        .edit-mode .radio-item label {
+            cursor: pointer !important;
+        }
+
+        .edit-mode .datetime-group select {
+            background-color: white !important;
+            color: #333 !important;
+            cursor: pointer !important;
+        }
+
+        /* 수정 모드 버튼 */
+        .edit-mode-buttons {
+            display: flex;
+        }
+
+        .view-mode-buttons {
+            display: none;
+        }
+
+        /* 설명 패널 */
+        .description-panel {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            margin-top: 120px;
+        }
+
+        .description-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .description-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .edit-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button:hover {
+            background: #0056b3;
+        }
+
+        .edit-button.complete {
+            background: #28a745;
+        }
+
+        .edit-button.complete:hover {
+            background: #1e7e34;
+        }
+
+        .description-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+
+        .description-item h4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .description-item p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .description-item.edit-mode .description-text {
+            display: none;
+        }
+
+        .description-item.edit-mode .edit-form {
+            display: block;
+        }
+
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form input,
+        .edit-form textarea {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .edit-form input {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .edit-form textarea {
+            height: 60px;
+            resize: vertical;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .description-panel {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .datetime-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .datetime-group .form-control {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* 로딩 상태 */
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 썸네일 미리보기 */
+        .thumbnail-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* 상태 표시 */
+        .status-y {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .status-n {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* 유효성 검사 오류 */
+        .form-control.error {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <div class="header-top">
+            <div>관리자 페이지</div>
+            <div>Writer: Keunjin2013 | Date / Version: 2025 | page: 3</div>
+        </div>
+        <div class="header-title">미디어 관리 > 보도자료 > 상세</div>
+    </div>
+
+    <div class="container">
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <div class="form-section">
+                <div id="loadingContent" class="loading">
+                    게시글을 불러오는 중...
+                </div>
+                
+                <form id="pressReleaseForm" style="display: none;">
+                    <!-- 언어 선택 -->
+                    <div class="form-group">
+                        <label class="required">언어</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="lang-kr" name="language" value="KR" checked>
+                                <label for="lang-kr">KR</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="lang-en" name="language" value="EN">
+                                <label for="lang-en">EN</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="lang-cn" name="language" value="CN">
+                                <label for="lang-cn">CN</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="lang-jp" name="language" value="JP">
+                                <label for="lang-jp">JP</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 카테고리 선택 -->
+                    <div class="form-group">
+                        <label class="required">카테고리</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="cat-corporate" name="category" value="기업" checked>
+                                <label for="cat-corporate">기업</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="cat-technology" name="category" value="기술">
+                                <label for="cat-technology">기술</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="cat-esg" name="category" value="ESG">
+                                <label for="cat-esg">ESG</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="cat-other" name="category" value="기타">
+                                <label for="cat-other">기타</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 제목 -->
+                    <div class="form-group">
+                        <label class="required">제목</label>
+                        <input type="text" class="form-control" id="title" name="title" readonly>
+                    </div>
+
+                    <!-- 내용 -->
+                    <div class="form-group">
+                        <label class="required">내용</label>
+                        <div class="rich-editor">
+                            <div class="editor-toolbar">
+                                <button type="button" class="editor-btn" onclick="formatText('bold')" title="굵게">B</button>
+                                <button type="button" class="editor-btn" onclick="formatText('italic')" title="기울임">I</button>
+                                <button type="button" class="editor-btn" onclick="formatText('underline')" title="밑줄">U</button>
+                                <button type="button" class="editor-btn" onclick="formatText('justifyLeft')" title="왼쪽 정렬">←</button>
+                                <button type="button" class="editor-btn" onclick="formatText('justifyCenter')" title="가운데 정렬">↔</button>
+                                <button type="button" class="editor-btn" onclick="formatText('justifyRight')" title="오른쪽 정렬">→</button>
+                                <button type="button" class="editor-btn" onclick="formatText('insertUnorderedList')" title="목록">•</button>
+                                <button type="button" class="editor-btn" onclick="formatText('insertOrderedList')" title="번호 목록">1.</button>
+                                <button type="button" class="editor-btn" onclick="insertLink()" title="링크">🔗</button>
+                                <button type="button" class="editor-btn" onclick="insertImage()" title="이미지">🖼</button>
+                                <button type="button" class="editor-btn" onclick="insertTable()" title="표">⊞</button>
+                                <button type="button" class="editor-btn" onclick="toggleCodeView()" title="코드 보기">&lt;/&gt;</button>
+                                <button type="button" class="editor-btn" onclick="toggleFullscreen()" title="전체화면">⛶</button>
+                            </div>
+                            <div class="editor-content" id="editorContent" readonly></div>
+                        </div>
+                    </div>
+
+                    <!-- 썸네일 -->
+                    <div class="form-group">
+                        <label>썸네일</label>
+                        <div class="file-upload" id="thumbnailUpload">
+                            <div class="file-info" id="thumbnailInfo">
+                                <div class="attachment-info">
+                                    <span class="attachment-name" id="thumbnailName"></span>
+                                    <span class="attachment-size" id="thumbnailSize"></span>
+                                </div>
+                            </div>
+                            <div id="thumbnailPlaceholder">
+                                <p>썸네일이 없습니다.</p>
+                            </div>
+                            <div id="thumbnailPreview" style="display: none;">
+                                <img id="thumbnailImage" class="thumbnail-preview" alt="썸네일">
+                            </div>
+                            <div class="file-actions" id="thumbnailActions">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="selectThumbnail()">파일 선택</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeThumbnail()">🗑</button>
+                            </div>
+                        </div>
+                        <input type="file" id="thumbnailInput" accept="image/jpeg,image/png" style="display: none;" onchange="handleThumbnailChange(this)">
+                    </div>
+
+                    <!-- 첨부파일 -->
+                    <div class="form-group">
+                        <label>첨부파일</label>
+                        <div class="file-upload" id="attachmentUpload">
+                            <div class="attachment-list" id="attachmentList"></div>
+                            <div id="attachmentPlaceholder">
+                                <p>첨부파일이 없습니다.</p>
+                            </div>
+                            <div class="file-actions" id="attachmentActions">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="selectAttachment()">파일 선택</button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="addMoreAttachment()">파일 추가</button>
+                            </div>
+                        </div>
+                        <input type="file" id="attachmentInput" multiple style="display: none;" onchange="handleAttachmentChange(this)">
+                    </div>
+
+                    <!-- 상위 노출 여부 -->
+                    <div class="form-group">
+                        <label class="required">상위 노출 여부</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="top-yes" name="topExposure" value="Y" checked>
+                                <label for="top-yes">Y</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="top-no" name="topExposure" value="N">
+                                <label for="top-no">N</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 발행일시 -->
+                    <div class="form-group">
+                        <label class="required">발행일시</label>
+                        <div class="datetime-group">
+                            <input type="date" class="form-control" id="publicationDate" name="publicationDate" readonly>
+                            <select class="form-control" id="publicationTime" name="publicationTime" disabled>
+                                <option value="00">00시</option>
+                                <option value="01">01시</option>
+                                <option value="02">02시</option>
+                                <option value="03">03시</option>
+                                <option value="04">04시</option>
+                                <option value="05">05시</option>
+                                <option value="06">06시</option>
+                                <option value="07">07시</option>
+                                <option value="08">08시</option>
+                                <option value="09">09시</option>
+                                <option value="10">10시</option>
+                                <option value="11">11시</option>
+                                <option value="12">12시</option>
+                                <option value="13">13시</option>
+                                <option value="14">14시</option>
+                                <option value="15">15시</option>
+                                <option value="16">16시</option>
+                                <option value="17">17시</option>
+                                <option value="18">18시</option>
+                                <option value="19">19시</option>
+                                <option value="20">20시</option>
+                                <option value="21">21시</option>
+                                <option value="22">22시</option>
+                                <option value="23">23시</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 노출 여부 -->
+                    <div class="form-group">
+                        <label class="required">노출 여부</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="exposure-yes" name="exposure" value="Y" checked>
+                                <label for="exposure-yes">Y</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="exposure-no" name="exposure" value="N">
+                                <label for="exposure-no">N</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 액션 버튼 -->
+                    <div class="action-buttons">
+                        <div class="view-mode-buttons">
+                            <button type="button" class="btn btn-primary" onclick="savePost()">저장</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">취소</button>
+                            <button type="button" class="btn btn-success" onclick="goToList()">목록</button>
+                        </div>
+                        <div class="edit-mode-buttons">
+                            <button type="button" class="btn btn-primary" onclick="savePost()">저장</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">취소</button>
+                            <button type="button" class="btn btn-success" onclick="goToList()">목록</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 설명 패널 -->
+        <div class="description-panel">
+            <div class="description-header">
+                <div class="description-title">Description</div>
+                <button class="edit-button" id="editDescriptionBtn" onclick="toggleDescriptionEditMode()">수정</button>
+            </div>
+            
+            <div class="description-item" data-id="1">
+                <h4>1. 자동 수정 모드</h4>
+                <div class="description-text">
+                    <p>- 게시글 상세 페이지 진입 시 자동으로 수정 모드로 전환됩니다.<br>- 모든 필드가 수정 가능한 상태입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="자동 수정 모드" placeholder="제목">
+                    <textarea placeholder="설명">- 게시글 상세 페이지 진입 시 자동으로 수정 모드로 전환됩니다.<br>- 모든 필드가 수정 가능한 상태입니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="2">
+                <h4>2. 첨부파일 관리</h4>
+                <div class="description-text">
+                    <p>- 기존 첨부파일 다운로드 및 삭제 가능<br>- 새 첨부파일 추가 가능 (최대 5개)</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="첨부파일 관리" placeholder="제목">
+                    <textarea placeholder="설명">- 기존 첨부파일 다운로드 및 삭제 가능<br>- 새 첨부파일 추가 가능 (최대 5개)</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="3">
+                <h4>3. 썸네일 관리</h4>
+                <div class="description-text">
+                    <p>- 기존 썸네일 미리보기 및 삭제 가능<br>- 새 썸네일 업로드 가능</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="썸네일 관리" placeholder="제목">
+                    <textarea placeholder="설명">- 기존 썸네일 미리보기 및 삭제 가능<br>- 새 썸네일 업로드 가능</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="4">
+                <h4>4. 저장/취소</h4>
+                <div class="description-text">
+                    <p>- 저장 버튼으로 Firebase에 업데이트 후 목록으로 이동<br>- 취소 버튼으로 원본 데이터로 복원</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="저장/취소" placeholder="제목">
+                    <textarea placeholder="설명">- 저장 버튼으로 Firebase에 업데이트 후 목록으로 이동<br>- 취소 버튼으로 원본 데이터로 복원</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase 설정 (다른 페이지와 동일한 설정 사용)
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // Firebase 설정 객체
+        const firebaseConfig = {
+            apiKey: "AIzaSyC-6ngOcL8-CTy7GtUtOQPOVsEUVjZ-j_w",
+            authDomain: "uber-admin-test.firebaseapp.com",
+            projectId: "uber-admin-test",
+            storageBucket: "uber-admin-test.firebasestorage.app",
+            messagingSenderId: "704623921868",
+            appId: "1:704623921868:web:057b0ffe418c0b79ecd069"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // 전역으로 사용할 수 있도록 설정
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+        window.firebaseStorage = storage;
+
+        console.log('Firebase가 성공적으로 초기화되었습니다.');
+    </script>
+
+    <script>
+        // 전역 변수
+        let currentPostId = null;
+        let currentPostData = null;
+        let isEditMode = false;
+        let originalData = null;
+        let newThumbnailFile = null;
+        let newAttachments = [];
+        let removedAttachments = [];
+
+        // URL에서 게시글 ID 추출
+        function getPostIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // Firebase에서 게시글 데이터 불러오기
+        async function loadPostFromFirebase(postId) {
+            try {
+                if (!window.firebaseDb) {
+                    throw new Error('Firebase가 초기화되지 않았습니다.');
+                }
+
+                const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                const docRef = doc(window.firebaseDb, 'pressReleases', postId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    return {
+                        id: docSnap.id,
+                        ...data,
+                        createdAt: data.createdAt ? data.createdAt.toDate() : new Date()
+                    };
+                } else {
+                    throw new Error('게시글을 찾을 수 없습니다.');
+                }
+            } catch (error) {
+                console.error('게시글 로드 오류:', error);
+                throw error;
+            }
+        }
+
+        // 폼에 데이터 표시
+        function displayPostData(postData) {
+            // 기본 정보
+            document.getElementById('title').value = postData.title || '';
+            document.getElementById('editorContent').innerHTML = postData.content || '';
+            
+            // 라디오 버튼 설정
+            document.querySelector(`input[name="language"][value="${postData.language}"]`).checked = true;
+            document.querySelector(`input[name="category"][value="${postData.category}"]`).checked = true;
+            document.querySelector(`input[name="topExposure"][value="${postData.topExposure}"]`).checked = true;
+            document.querySelector(`input[name="exposure"][value="${postData.exposure}"]`).checked = true;
+            
+            // 날짜/시간 설정
+            document.getElementById('publicationDate').value = postData.publicationDate || '';
+            document.getElementById('publicationTime').value = postData.publicationTime || '00';
+            
+            // 초기 상태에서 모든 필드 비활성화 - 속성으로 설정
+            document.getElementById('title').setAttribute('readonly', 'readonly');
+            document.getElementById('publicationDate').setAttribute('readonly', 'readonly');
+            document.getElementById('publicationTime').setAttribute('disabled', 'disabled');
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.setAttribute('disabled', 'disabled');
+            });
+            document.getElementById('editorContent').contentEditable = 'false';
+            
+            // 썸네일 표시
+            if (postData.thumbnailUrl) {
+                displayThumbnail(postData.thumbnailUrl);
+            }
+            
+            // 첨부파일 표시
+            if (postData.attachments && postData.attachments.length > 0) {
+                displayAttachments(postData.attachments);
+            }
+        }
+
+        // 썸네일 표시
+        function displayThumbnail(thumbnailUrl) {
+            const upload = document.getElementById('thumbnailUpload');
+            const info = document.getElementById('thumbnailInfo');
+            const placeholder = document.getElementById('thumbnailPlaceholder');
+            const preview = document.getElementById('thumbnailPreview');
+            const image = document.getElementById('thumbnailImage');
+            
+            upload.classList.add('has-file');
+            info.classList.add('show');
+            placeholder.style.display = 'none';
+            preview.style.display = 'block';
+            
+            image.src = thumbnailUrl;
+            image.onclick = () => window.open(thumbnailUrl, '_blank');
+            
+            document.getElementById('thumbnailName').textContent = '썸네일 이미지';
+            document.getElementById('thumbnailSize').textContent = '미리보기';
+        }
+
+        // 첨부파일 표시
+        function displayAttachments(attachments) {
+            const list = document.getElementById('attachmentList');
+            const placeholder = document.getElementById('attachmentPlaceholder');
+            
+            placeholder.style.display = 'none';
+            
+            list.innerHTML = attachments.map((attachment, index) => `
+                <div class="attachment-item">
+                    <div class="attachment-info">
+                        <span class="attachment-name">${attachment.name}</span>
+                        <span class="attachment-size">${formatFileSize(attachment.size)}</span>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="downloadAttachment('${attachment.url}', '${attachment.name}')">다운로드</button>
+                </div>
+            `).join('');
+        }
+
+        // 파일 크기 포맷팅
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 첨부파일 다운로드
+        function downloadAttachment(url, filename) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 수정 모드 활성화 (자동으로 수정 모드로 진입)
+        function toggleEditMode() {
+            isEditMode = true;
+            const form = document.getElementById('pressReleaseForm');
+            
+            // 수정 모드로 전환
+            form.classList.add('edit-mode');
+            originalData = { ...currentPostData };
+            
+            // 폼 필드 활성화 - 강제로 속성 제거
+            const titleField = document.getElementById('title');
+            const dateField = document.getElementById('publicationDate');
+            const timeField = document.getElementById('publicationTime');
+            
+            titleField.removeAttribute('readonly');
+            dateField.removeAttribute('readonly');
+            timeField.removeAttribute('disabled');
+            
+            // 라디오 버튼 활성화 - 강제로 속성 제거
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.removeAttribute('disabled');
+            });
+            
+            // 에디터 활성화
+            document.getElementById('editorContent').contentEditable = 'true';
+            
+            // 스타일 강제 적용
+            titleField.style.backgroundColor = 'white';
+            titleField.style.color = '#333';
+            dateField.style.backgroundColor = 'white';
+            dateField.style.color = '#333';
+            timeField.style.backgroundColor = 'white';
+            timeField.style.color = '#333';
+            
+            console.log('수정 모드로 전환되었습니다.');
+        }
+
+        // 취소 버튼
+        function cancelEdit() {
+            if (confirm('수정 내용이 취소됩니다. 계속하시겠습니까?')) {
+                // 원본 데이터로 복원
+                displayPostData(originalData);
+                
+                // 새로 추가된 파일들 초기화
+                newThumbnailFile = null;
+                newAttachments = [];
+                removedAttachments = [];
+                
+                // 수정 모드 유지 (자동으로 수정 모드로 진입하므로)
+                toggleEditMode();
+            }
+        }
+
+        // 파일 업로드 기능들
+        function selectThumbnail() {
+            document.getElementById('thumbnailInput').click();
+        }
+
+        function handleThumbnailChange(input) {
+            const file = input.files[0];
+            if (file) {
+                // 파일 크기 체크 (30MB)
+                if (file.size > 30 * 1024 * 1024) {
+                    alert('파일 크기는 30MB 이하여야 합니다.');
+                    return;
+                }
+                
+                // 파일 형식 체크
+                if (!file.type.match(/image\/(jpeg|png)/)) {
+                    alert('JPG, PNG 파일만 업로드 가능합니다.');
+                    return;
+                }
+                
+                newThumbnailFile = file;
+                updateThumbnailDisplay(file);
+            }
+        }
+
+        function updateThumbnailDisplay(file) {
+            const upload = document.getElementById('thumbnailUpload');
+            const info = document.getElementById('thumbnailInfo');
+            const placeholder = document.getElementById('thumbnailPlaceholder');
+            const preview = document.getElementById('thumbnailPreview');
+            const image = document.getElementById('thumbnailImage');
+            
+            upload.classList.add('has-file');
+            info.classList.add('show');
+            placeholder.style.display = 'none';
+            preview.style.display = 'block';
+            
+            // 파일 미리보기
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            
+            document.getElementById('thumbnailName').textContent = file.name;
+            document.getElementById('thumbnailSize').textContent = formatFileSize(file.size);
+        }
+
+        function removeThumbnail() {
+            newThumbnailFile = null;
+            document.getElementById('thumbnailInput').value = '';
+            
+            const upload = document.getElementById('thumbnailUpload');
+            const info = document.getElementById('thumbnailInfo');
+            const placeholder = document.getElementById('thumbnailPlaceholder');
+            const preview = document.getElementById('thumbnailPreview');
+            
+            upload.classList.remove('has-file');
+            info.classList.remove('show');
+            placeholder.style.display = 'block';
+            preview.style.display = 'none';
+        }
+
+        // 첨부파일 관리
+        function selectAttachment() {
+            document.getElementById('attachmentInput').click();
+        }
+
+        function handleAttachmentChange(input) {
+            const files = Array.from(input.files);
+            
+            files.forEach(file => {
+                // 파일 크기 체크 (30MB)
+                if (file.size > 30 * 1024 * 1024) {
+                    alert(`${file.name} 파일 크기는 30MB 이하여야 합니다.`);
+                    return;
+                }
+                
+                // 최대 5개 체크
+                if (newAttachments.length >= 5) {
+                    alert('최대 5개까지 첨부 가능합니다.');
+                    return;
+                }
+                
+                newAttachments.push(file);
+            });
+            
+            updateAttachmentDisplay();
+        }
+
+        function addMoreAttachment() {
+            if (newAttachments.length >= 5) {
+                alert('최대 5개까지 첨부 가능합니다.');
+                return;
+            }
+            selectAttachment();
+        }
+
+        function removeNewAttachment(index) {
+            newAttachments.splice(index, 1);
+            updateAttachmentDisplay();
+        }
+
+        function removeExistingAttachment(index) {
+            if (currentPostData.attachments && currentPostData.attachments[index]) {
+                removedAttachments.push(currentPostData.attachments[index]);
+                currentPostData.attachments.splice(index, 1);
+                displayAttachments(currentPostData.attachments);
+            }
+        }
+
+        function updateAttachmentDisplay() {
+            const list = document.getElementById('attachmentList');
+            const placeholder = document.getElementById('attachmentPlaceholder');
+            
+            // 기존 첨부파일과 새 첨부파일을 함께 표시
+            let allAttachments = [];
+            
+            // 기존 첨부파일
+            if (currentPostData.attachments) {
+                allAttachments = allAttachments.concat(
+                    currentPostData.attachments.map((attachment, index) => ({
+                        ...attachment,
+                        isExisting: true,
+                        index: index
+                    }))
+                );
+            }
+            
+            // 새 첨부파일
+            allAttachments = allAttachments.concat(
+                newAttachments.map((file, index) => ({
+                    name: file.name,
+                    size: file.size,
+                    isNew: true,
+                    index: index
+                }))
+            );
+            
+            if (allAttachments.length === 0) {
+                list.innerHTML = '';
+                placeholder.style.display = 'block';
+            } else {
+                placeholder.style.display = 'none';
+                list.innerHTML = allAttachments.map((attachment, index) => {
+                    if (attachment.isExisting) {
+                        return `
+                            <div class="attachment-item">
+                                <div class="attachment-info">
+                                    <span class="attachment-name">${attachment.name}</span>
+                                    <span class="attachment-size">${formatFileSize(attachment.size)}</span>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="downloadAttachment('${attachment.url}', '${attachment.name}')">다운로드</button>
+                                    ${isEditMode ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeExistingAttachment(${attachment.index})">🗑</button>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="attachment-item">
+                                <div class="attachment-info">
+                                    <span class="attachment-name">${attachment.name}</span>
+                                    <span class="attachment-size">${formatFileSize(attachment.size)}</span>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeNewAttachment(${attachment.index})">🗑</button>
+                            </div>
+                        `;
+                    }
+                }).join('');
+            }
+        }
+
+        // Firebase에서 게시글 업데이트
+        async function updatePostInFirebase(updatedData) {
+            try {
+                if (!window.firebaseDb) {
+                    throw new Error('Firebase가 초기화되지 않았습니다.');
+                }
+
+                const { doc, updateDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                const docRef = doc(window.firebaseDb, 'pressReleases', currentPostId);
+                await updateDoc(docRef, {
+                    ...updatedData,
+                    updatedAt: serverTimestamp()
+                });
+                
+                console.log('게시글이 Firebase에서 업데이트되었습니다.');
+                return true;
+                
+            } catch (error) {
+                console.error('Firebase 업데이트 오류:', error);
+                throw error;
+            }
+        }
+
+        // 파일을 Firebase Storage에 업로드
+        async function uploadFileToStorage(file, path) {
+            try {
+                if (!window.firebaseStorage) {
+                    throw new Error('Firebase Storage가 초기화되지 않았습니다.');
+                }
+
+                const { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js');
+                
+                const storageRef = ref(window.firebaseStorage, path);
+                const snapshot = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                
+                console.log('파일이 업로드되었습니다:', downloadURL);
+                return downloadURL;
+                
+            } catch (error) {
+                console.error('파일 업로드 오류:', error);
+                throw error;
+            }
+        }
+
+        // 게시글 저장
+        async function savePost() {
+            // 유효성 검사
+            if (!validateForm()) {
+                return;
+            }
+            
+            // 로딩 상태 표시
+            const saveBtn = document.querySelector('.edit-mode-buttons .btn-primary');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = '저장 중...';
+            saveBtn.disabled = true;
+            
+            try {
+                // 폼 데이터 수집
+                const formData = {
+                    language: document.querySelector('input[name="language"]:checked').value,
+                    category: document.querySelector('input[name="category"]:checked').value,
+                    title: document.getElementById('title').value,
+                    content: document.getElementById('editorContent').innerHTML,
+                    topExposure: document.querySelector('input[name="topExposure"]:checked').value,
+                    publicationDate: document.getElementById('publicationDate').value,
+                    publicationTime: document.getElementById('publicationTime').value,
+                    exposure: document.querySelector('input[name="exposure"]:checked').value,
+                    attachments: currentPostData.attachments || [],
+                    thumbnailUrl: currentPostData.thumbnailUrl || null
+                };
+
+                // 새 썸네일 업로드
+                if (newThumbnailFile) {
+                    const thumbnailPath = `thumbnails/${Date.now()}_${newThumbnailFile.name}`;
+                    formData.thumbnailUrl = await uploadFileToStorage(newThumbnailFile, thumbnailPath);
+                }
+
+                // 새 첨부파일 업로드
+                for (let i = 0; i < newAttachments.length; i++) {
+                    const file = newAttachments[i];
+                    const attachmentPath = `attachments/${Date.now()}_${i}_${file.name}`;
+                    const downloadURL = await uploadFileToStorage(file, attachmentPath);
+                    formData.attachments.push({
+                        name: file.name,
+                        size: file.size,
+                        url: downloadURL
+                    });
+                }
+
+                // Firebase에서 게시글 업데이트
+                await updatePostInFirebase(formData);
+                
+                alert('🎉 게시글이 성공적으로 수정되었습니다!');
+                
+                // 현재 데이터 업데이트
+                currentPostData = { ...currentPostData, ...formData };
+                
+                // 새로 추가된 파일들 초기화
+                newThumbnailFile = null;
+                newAttachments = [];
+                removedAttachments = [];
+                
+                // 목록 페이지로 이동
+                setTimeout(() => {
+                    goToList();
+                }, 1000);
+                
+            } catch (error) {
+                console.error('저장 오류:', error);
+                alert(`❌ 저장 중 오류가 발생했습니다.\n\n오류: ${error.message}`);
+            } finally {
+                // 버튼 상태 복원
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+
+        // 폼 유효성 검사
+        function validateForm() {
+            let isValid = true;
+            
+            // 제목 검사
+            const title = document.getElementById('title');
+            if (!title.value.trim()) {
+                showError(title, '제목을 입력해주세요.');
+                isValid = false;
+            } else {
+                clearError(title);
+            }
+            
+            // 내용 검사
+            const content = document.getElementById('editorContent');
+            if (!content.innerHTML.trim() || content.innerHTML === '<div><br></div>') {
+                showError(content, '내용을 입력해주세요.');
+                isValid = false;
+            } else {
+                clearError(content);
+            }
+            
+            return isValid;
+        }
+
+        function showError(element, message) {
+            element.classList.add('error');
+            let errorDiv = element.parentNode.querySelector('.error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                element.parentNode.appendChild(errorDiv);
+            }
+            errorDiv.textContent = message;
+        }
+
+        function clearError(element) {
+            element.classList.remove('error');
+            const errorDiv = element.parentNode.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+
+        // 리치 텍스트 에디터 기능들
+        function formatText(command) {
+            if (isEditMode) {
+                document.execCommand(command, false, null);
+                updateToolbar();
+            }
+        }
+
+        function updateToolbar() {
+            if (!isEditMode) return;
+            
+            const buttons = document.querySelectorAll('.editor-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 현재 선택된 서식에 따라 버튼 활성화
+            if (document.queryCommandState('bold')) {
+                document.querySelector('[onclick="formatText(\'bold\')"]').classList.add('active');
+            }
+            if (document.queryCommandState('italic')) {
+                document.querySelector('[onclick="formatText(\'italic\')"]').classList.add('active');
+            }
+            if (document.queryCommandState('underline')) {
+                document.querySelector('[onclick="formatText(\'underline\')"]').classList.add('active');
+            }
+        }
+
+        function insertLink() {
+            if (!isEditMode) return;
+            const url = prompt('링크 URL을 입력하세요:');
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        }
+
+        function insertImage() {
+            if (!isEditMode) return;
+            const url = prompt('이미지 URL을 입력하세요:');
+            if (url) {
+                document.execCommand('insertImage', false, url);
+            }
+        }
+
+        function insertTable() {
+            if (!isEditMode) return;
+            const rows = prompt('행 수를 입력하세요:', '3');
+            const cols = prompt('열 수를 입력하세요:', '3');
+            if (rows && cols) {
+                let table = '<table border="1" style="border-collapse: collapse; width: 100%;">';
+                for (let i = 0; i < rows; i++) {
+                    table += '<tr>';
+                    for (let j = 0; j < cols; j++) {
+                        table += '<td style="padding: 8px;">&nbsp;</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</table>';
+                document.execCommand('insertHTML', false, table);
+            }
+        }
+
+        function toggleCodeView() {
+            if (!isEditMode) return;
+            const editor = document.getElementById('editorContent');
+            if (editor.style.fontFamily === 'monospace') {
+                editor.style.fontFamily = '';
+                editor.style.backgroundColor = '';
+            } else {
+                editor.style.fontFamily = 'monospace';
+                editor.style.backgroundColor = '#f8f9fa';
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!isEditMode) return;
+            const editor = document.querySelector('.rich-editor');
+            if (editor.style.position === 'fixed') {
+                editor.style.position = '';
+                editor.style.top = '';
+                editor.style.left = '';
+                editor.style.width = '';
+                editor.style.height = '';
+                editor.style.zIndex = '';
+                editor.style.backgroundColor = '';
+            } else {
+                editor.style.position = 'fixed';
+                editor.style.top = '50px';
+                editor.style.left = '50px';
+                editor.style.width = 'calc(100vw - 100px)';
+                editor.style.height = 'calc(100vh - 100px)';
+                editor.style.zIndex = '9999';
+                editor.style.backgroundColor = 'white';
+            }
+        }
+
+        // 목록으로 이동
+        function goToList() {
+            window.location.href = 'media_list_admin.html';
+        }
+
+        // 디스크립션 수정 모드 토글
+        function toggleDescriptionEditMode() {
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const descriptionItems = document.querySelectorAll('.description-item');
+            
+            if (editBtn.textContent === '수정') {
+                // 편집 모드 시작
+                editBtn.textContent = '완료';
+                editBtn.classList.add('complete');
+                
+                descriptionItems.forEach(item => {
+                    item.classList.add('edit-mode');
+                    const textDiv = item.querySelector('.description-text');
+                    const formDiv = item.querySelector('.edit-form');
+                    textDiv.classList.add('hidden');
+                    formDiv.classList.add('active');
+                });
+            } else {
+                // 편집 모드 종료 및 저장
+                editBtn.textContent = '수정';
+                editBtn.classList.remove('complete');
+                
+                descriptionItems.forEach(item => {
+                    item.classList.remove('edit-mode');
+                    const textDiv = item.querySelector('.description-text');
+                    const formDiv = item.querySelector('.edit-form');
+                    const input = formDiv.querySelector('input');
+                    const textarea = formDiv.querySelector('textarea');
+                    const h4 = item.querySelector('h4');
+                    const p = textDiv.querySelector('p');
+                    
+                    // 입력된 값으로 업데이트
+                    const itemId = item.getAttribute('data-id');
+                    h4.textContent = `${itemId}. ${input.value}`;
+                    p.textContent = textarea.value;
+                    
+                    textDiv.classList.remove('hidden');
+                    formDiv.classList.remove('active');
+                });
+                
+                // Firebase에 디스크립션 저장
+                saveDescriptionsToFirebase();
+                
+                // 저장 완료 알림
+                alert('디스크립션이 성공적으로 수정되었습니다.');
+            }
+        }
+
+        // 디스크립션을 Firebase에 저장하는 함수
+        async function saveDescriptionsToFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // 현재 디스크립션 데이터 수집
+                const descriptionItems = document.querySelectorAll('.description-item');
+                const descriptions = [];
+                
+                descriptionItems.forEach(item => {
+                    const itemId = item.getAttribute('data-id');
+                    const h4 = item.querySelector('h4');
+                    const p = item.querySelector('.description-text p');
+                    
+                    descriptions.push({
+                        id: itemId,
+                        title: h4.textContent,
+                        content: p.textContent,
+                        page: 'media_detail_admin'
+                    });
+                });
+                
+                // Firebase에 저장
+                const docRef = await addDoc(collection(window.firebaseDb, 'descriptions'), {
+                    page: 'media_detail_admin',
+                    descriptions: descriptions,
+                    updatedAt: serverTimestamp(),
+                    updatedBy: 'admin'
+                });
+                
+                console.log('디스크립션이 Firebase에 저장되었습니다. ID:', docRef.id);
+                return docRef.id;
+            } catch (error) {
+                console.error('Firebase 저장 오류:', error);
+                throw error;
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', async function() {
+            console.log('게시글 상세 페이지가 로드되었습니다.');
+            
+            // URL에서 게시글 ID 가져오기
+            currentPostId = getPostIdFromUrl();
+            
+            if (!currentPostId) {
+                alert('게시글 ID가 없습니다. 목록 페이지로 이동합니다.');
+                goToList();
+                return;
+            }
+            
+            try {
+                // Firebase에서 게시글 데이터 불러오기
+                currentPostData = await loadPostFromFirebase(currentPostId);
+                
+                // 폼에 데이터 표시
+                displayPostData(currentPostData);
+                
+                // 로딩 숨기고 폼 표시
+                document.getElementById('loadingContent').style.display = 'none';
+                document.getElementById('pressReleaseForm').style.display = 'block';
+                
+                // 자동으로 수정 모드로 진입
+                toggleEditMode();
+                
+                console.log('게시글 데이터가 성공적으로 로드되었습니다:', currentPostData);
+                
+                // 에디터 플레이스홀더 이벤트 추가
+                setupEditorPlaceholder();
+                
+            } catch (error) {
+                console.error('게시글 로드 실패:', error);
+                alert(`게시글을 불러오는 중 오류가 발생했습니다.\n\n오류: ${error.message}\n\n목록 페이지로 이동합니다.`);
+                goToList();
+            }
+        });
+
+        // 에디터 플레이스홀더 설정
+        function setupEditorPlaceholder() {
+            const editor = document.getElementById('editorContent');
+            
+            editor.addEventListener('focus', function() {
+                if (this.innerHTML === '<div><br></div>' || this.innerHTML === '') {
+                    this.innerHTML = '';
+                }
+            });
+
+            editor.addEventListener('blur', function() {
+                if (this.innerHTML === '' || this.innerHTML === '<div><br></div>') {
+                    this.innerHTML = '<div><br></div>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

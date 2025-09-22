@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어 관리 > 보도자료 > 목록</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            flex: 1;
+            margin-top: 120px;
+        }
+
+        /* 테이블과 페이지네이션을 묶은 구역 */
+        .table-pagination-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 120px;
+        }
+
+        /* 헤더 */
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 검색/필터 영역 */
+        .search-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 120px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+
+        .date-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* 테이블 영역 */
+        .table-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            flex: 1;
+            margin-top: 120px;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        .data-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .data-table tbody tr.disabled {
+            background-color: #f5f5f5;
+            color: #999;
+        }
+
+        .title-link {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .title-link:hover {
+            color: #0056b3;
+        }
+
+        /* 페이지네이션 */
+        .pagination-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .register-button {
+            position: absolute;
+            right: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .pagination button:hover {
+            background-color: #f8f9fa;
+        }
+
+        .pagination button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 설명 패널 */
+        .description-panel {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            margin-top: 240px;
+            position: sticky;
+            top: 140px;
+        }
+
+        .description-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .description-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .edit-button {
+            padding: 6px 12px;
+            border: 1px solid #007bff;
+            background: white;
+            color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .edit-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .edit-button.complete {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .edit-button.complete:hover {
+            background-color: #218838;
+        }
+
+        .description-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+
+        .description-item h4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .description-item p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 편집 모드 스타일 */
+        .description-item.edit-mode {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .description-item.edit-mode h4 {
+            color: #856404;
+        }
+
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .edit-form input,
+        .edit-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-family: inherit;
+        }
+
+        .edit-form textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .edit-form input:focus,
+        .edit-form textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+
+        .description-text {
+            display: block;
+        }
+
+        .description-text.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .table-pagination-section {
+                margin-top: 20px;
+            }
+            
+            .description-panel {
+                width: 100%;
+                margin-top: 20px;
+                position: static;
+            }
+            
+            .search-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+            
+            .form-control {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .data-table {
+                font-size: 12px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 4px;
+            }
+            
+            .pagination-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .register-button {
+                position: static;
+                align-self: flex-end;
+            }
+        }
+
+        /* 스크롤 가능한 테이블 */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        /* 상태 표시 */
+        .status-y {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .status-n {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="header-top">
+                <div>관리자 페이지</div>
+                <div>Writer: Keunjin2013 | Date / Version: 2025 | page 1</div>
+            </div>
+            <div class="header-title">미디어 관리 > 보도자료 > 목록</div>
+            <!-- 검색/필터 영역 -->
+            <div class="search-section">
+                <form class="search-form">
+                    <div class="form-group">
+                        <label>날짜</label>
+                        <div class="date-range">
+                            <input type="date" class="form-control" id="startDate">
+                            <span>~</span>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>언어</label>
+                        <select class="form-control" id="language">
+                            <option value="">전체</option>
+                            <option value="KR">KR</option>
+                            <option value="EN">EN</option>
+                            <option value="CN">CN</option>
+                            <option value="JP">JP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>카테고리</label>
+                        <select class="form-control" id="category">
+                            <option value="">전체</option>
+                            <option value="기업">기업</option>
+                            <option value="기술">기술</option>
+                            <option value="ESG">ESG</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>검색</label>
+                        <div class="search-input-group">
+                            <select class="form-control" id="searchType" style="min-width: 80px;">
+                                <option value="all">전체</option>
+                                <option value="title">제목</option>
+                                <option value="content">내용</option>
+                            </select>
+                            <input type="text" class="form-control" id="searchKeyword" placeholder="검색어 입력" style="min-width: 200px;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-primary" onclick="searchPress()">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 테이블과 페이지네이션을 묶은 구역 -->
+        <div class="table-pagination-section">
+            <!-- 테이블 영역 -->
+            <div class="table-section">
+                <div class="table-header">
+                    <div class="table-title">게시물 목록 (최신 등록순)</div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">번호</th>
+                                <th style="width: 60px;">언어</th>
+                                <th style="width: 80px;">카테고리</th>
+                                <th style="width: 300px;">제목</th>
+                                <th style="width: 80px;">작성자</th>
+                                <th style="width: 80px;">조회수</th>
+                                <th style="width: 80px;">상위노출</th>
+                                <th style="width: 80px;">노출여부</th>
+                                <th style="width: 120px;">발행일시</th>
+                                <th style="width: 120px;">등록일시</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15</td>
+                                <td>KR</td>
+                                <td>기업</td>
+                                <td><span class="title-link" onclick="viewDetail(15)">DB하이텍, 2024년 매출액 1조 1,310억원, 영업이익 1,950억원</span></td>
+                                <td>관*자</td>
+                                <td>1212</td>
+                                <td><span class="status-y">Y</span></td>
+                                <td><span class="status-y">Y</span></td>
+                                <td>2024-05-20 17:00</td>
+                                <td>2024-05-19 17:00</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>EN</td>
+                                <td>기술</td>
+                                <td><span class="title-link" onclick="viewDetail(14)">Samsung Electronics Announces New AI Chip Technology</span></td>
+                                <td>관*자</td>
+                                <td>856</td>
+                                <td><span class="status-n">N</span></td>
+                                <td><span class="status-y">Y</span></td>
+                                <td>2024-05-19 14:30</td>
+                                <td>2024-05-18 14:30</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>KR</td>
+                                <td>ESG</td>
+                                <td><span class="title-link" onclick="viewDetail(13)">삼성전자, 지속가능경영 보고서 발간</span></td>
+                                <td>관*자</td>
+                                <td>743</td>
+                                <td><span class="status-y">Y</span></td>
+                                <td><span class="status-y">Y</span></td>
+                                <td>2024-05-18 11:00</td>
+                                <td>2024-05-17 11:00</td>
+                            </tr>
+                            <tr class="disabled">
+                                <td>12</td>
+                                <td>CN</td>
+                                <td>기타</td>
+                                <td><span class="title-link" onclick="viewDetail(12)">三星电子发布2024年第一季度财报</span></td>
+                                <td>관*자</td>
+                                <td>432</td>
+                                <td><span class="status-n">N</span></td>
+                                <td><span class="status-n">N</span></td>
+                                <td>2024-05-17 09:00</td>
+                                <td>2024-05-16 09:00</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>JP</td>
+                                <td>기업</td>
+                                <td><span class="title-link" onclick="viewDetail(11)">サムスン電子、2024年第1四半期決算発表</span></td>
+                                <td>관*자</td>
+                                <td>298</td>
+                                <td><span class="status-n">N</span></td>
+                                <td><span class="status-y">Y</span></td>
+                                <td>2024-05-16 16:00</td>
+                                <td>2024-05-15 16:00</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>KR</td>
+                                <td>기술</td>
+                                <td><span class="title-link" onclick="viewDetail(10)">SK하이닉스, 차세대 메모리 기술 개발 성과 발표</span></td>
+                                <td>관*자</td>
+                                <td>567</td>
+                                <td><span class="status-y">Y</span></td>
+                                <td><span class="status-y">Y</span></td>
+                                <td>2024-05-15 13:00</td>
+                                <td>2024-05-14 13:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 페이지네이션 및 등록 버튼 -->
+            <div class="pagination-section">
+                <div class="pagination">
+                    <button onclick="goToPage('first')" title="첫 페이지"><<</button>
+                    <button onclick="goToPage('prev')" title="이전 페이지"><</button>
+                    <button class="active" onclick="goToPage(1)">1</button>
+                    <button onclick="goToPage(2)">2</button>
+                    <button onclick="goToPage(3)">3</button>
+                    <button onclick="goToPage(4)">4</button>
+                    <button onclick="goToPage(5)">5</button>
+                    <button onclick="goToPage(6)">6</button>
+                    <button onclick="goToPage(7)">7</button>
+                    <button onclick="goToPage(8)">8</button>
+                    <button onclick="goToPage(9)">9</button>
+                    <button onclick="goToPage(10)">10</button>
+                    <button onclick="goToPage('next')" title="다음 페이지">></button>
+                    <button onclick="goToPage('last')" title="마지막 페이지">>></button>
+                </div>
+                
+                <button class="btn btn-primary register-button" onclick="registerNew()">등록</button>
+            </div>
+        </div>
+
+        <!-- 설명 패널 -->
+        <div class="description-panel">
+            <div class="description-header">
+                <div class="description-title">Description</div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="edit-button" id="editDescriptionBtn" onclick="toggleEditMode()">수정</button>
+                    <button class="edit-button" onclick="testFirebaseConnection()" style="background-color: #28a745; border-color: #28a745; color: white;">Firebase 테스트</button>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="1">
+                <h4>1. 게시물 목록</h4>
+                <div class="description-text">
+                    <p>- 정렬 기준은 "최신 등록순"입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="게시물 목록" placeholder="제목">
+                    <textarea placeholder="설명">- 정렬 기준은 "최신 등록순"입니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="2">
+                <h4>2. 언어</h4>
+                <div class="description-text">
+                    <p>- "KR, EN, CN, JP"를 지원하며, 게시물 등록 시 선택한 언어가 노출됩니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="언어" placeholder="제목">
+                    <textarea placeholder="설명">- "KR, EN, CN, JP"를 지원하며, 게시물 등록 시 선택한 언어가 노출됩니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="3">
+                <h4>3. 카테고리</h4>
+                <div class="description-text">
+                    <p>- "기업, 기술, ESG, 기타" 카테고리가 있습니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="카테고리" placeholder="제목">
+                    <textarea placeholder="설명">- "기업, 기술, ESG, 기타" 카테고리가 있습니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="4">
+                <h4>4. 제목</h4>
+                <div class="description-text">
+                    <p>- 클릭 시 상세 페이지로 이동합니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="제목" placeholder="제목">
+                    <textarea placeholder="설명">- 클릭 시 상세 페이지로 이동합니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="5">
+                <h4>5. 날짜</h4>
+                <div class="description-text">
+                    <p>- 년, 월, 일 선택이 가능하며 발행일시로 검색합니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="날짜" placeholder="제목">
+                    <textarea placeholder="설명">- 년, 월, 일 선택이 가능하며 발행일시로 검색합니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="6">
+                <h4>6. 언어</h4>
+                <div class="description-text">
+                    <p>- 검색 필터의 언어 드롭다운 옵션입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="언어" placeholder="제목">
+                    <textarea placeholder="설명">- 검색 필터의 언어 드롭다운 옵션입니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="7">
+                <h4>7. 카테고리</h4>
+                <div class="description-text">
+                    <p>- 검색 필터의 카테고리 드롭다운 옵션입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="카테고리" placeholder="제목">
+                    <textarea placeholder="설명">- 검색 필터의 카테고리 드롭다운 옵션입니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="8">
+                <h4>8. 셀렉트 박스</h4>
+                <div class="description-text">
+                    <p>- 검색 필드의 검색 대상 (전체, 제목, 내용)을 선택하는 드롭다운입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="셀렉트 박스" placeholder="제목">
+                    <textarea placeholder="설명">- 검색 필드의 검색 대상 (전체, 제목, 내용)을 선택하는 드롭다운입니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="9">
+                <h4>9. 인풋 박스</h4>
+                <div class="description-text">
+                    <p>- 검색 필드의 검색어 입력 영역이며, And 검색을 지원하고 검색 결과는 마스킹되어 노출됩니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="인풋 박스" placeholder="제목">
+                    <textarea placeholder="설명">- 검색 필드의 검색어 입력 영역이며, And 검색을 지원하고 검색 결과는 마스킹되어 노출됩니다.</textarea>
+                </div>
+            </div>
+            
+            <div class="description-item" data-id="10">
+                <h4>10. 등록</h4>
+                <div class="description-text">
+                    <p>- 클릭 시 게시글 등록 페이지로 이동합니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="text" value="등록" placeholder="제목">
+                    <textarea placeholder="설명">- 클릭 시 게시글 등록 페이지로 이동합니다.</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase 설정 (실제 프로젝트 설정으로 교체 필요)
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // Firebase 설정 객체 (Firebase 콘솔에서 복사한 값으로 교체)
+        const firebaseConfig = {
+            apiKey: "AIzaSyC-6ngOcL8-CTy7GtUtOQPOVsEUVjZ-j_w",
+            authDomain: "uber-admin-test.firebaseapp.com",
+            projectId: "uber-admin-test",
+            storageBucket: "uber-admin-test.firebasestorage.app",
+            messagingSenderId: "704623921868",
+            appId: "1:704623921868:web:057b0ffe418c0b79ecd069"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // 전역으로 사용할 수 있도록 설정
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+        window.firebaseStorage = storage;
+
+        console.log('Firebase가 성공적으로 초기화되었습니다.');
+    </script>
+
+    <script>
+        // Firebase 연결 확인
+        function checkFirebaseConnection() {
+            if (window.firebaseAuth && window.firebaseDb) {
+                console.log('Firebase 연결 상태: 성공');
+                return true;
+            } else {
+                console.log('Firebase 연결 상태: 실패');
+                return false;
+            }
+        }
+
+        // 검색 기능
+        function searchPress() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const language = document.getElementById('language').value;
+            const category = document.getElementById('category').value;
+            const searchType = document.getElementById('searchType').value;
+            const searchKeyword = document.getElementById('searchKeyword').value;
+            
+            console.log('검색 조건:', {
+                startDate,
+                endDate,
+                language,
+                category,
+                searchType,
+                searchKeyword
+            });
+            
+            // 실제 검색 로직 구현
+            alert('검색 기능이 실행되었습니다.\n검색 결과는 마스킹되어 노출됩니다.');
+        }
+
+        // 상세보기
+        function viewDetail(id) {
+            console.log('상세보기:', id);
+            alert(`게시물 ${id}번의 상세 페이지로 이동합니다.`);
+        }
+
+        // 새 게시물 등록
+        function registerNew() {
+            console.log('새 게시물 등록');
+            window.location.href = 'media_upload_admin.html';
+        }
+
+        // 페이지네이션
+        function goToPage(page) {
+            if (page === 'first') {
+                page = 1;
+            } else if (page === 'prev') {
+                page = Math.max(1, getCurrentPage() - 1);
+            } else if (page === 'next') {
+                page = getCurrentPage() + 1;
+            } else if (page === 'last') {
+                page = 10; // 실제로는 총 페이지 수를 계산해야 함
+            }
+            
+            console.log('페이지 이동:', page);
+            
+            // 활성 페이지 버튼 업데이트
+            document.querySelectorAll('.pagination button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const targetBtn = document.querySelector(`.pagination button[onclick="goToPage(${page})"]`);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+        }
+
+        // 현재 페이지 가져오기
+        function getCurrentPage() {
+            const activeBtn = document.querySelector('.pagination button.active');
+            if (activeBtn) {
+                const onclick = activeBtn.getAttribute('onclick');
+                const match = onclick.match(/goToPage\((\d+)\)/);
+                return match ? parseInt(match[1]) : 1;
+            }
+            return 1;
+        }
+
+        // 테이블 행 클릭 이벤트
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function(e) {
+                // 제목 링크 클릭이 아닌 경우에만
+                if (!e.target.classList.contains('title-link')) {
+                    console.log('행 클릭:', this.cells[0].textContent);
+                }
+            });
+        });
+
+        // 날짜 필드 초기값 설정 (최근 1개월)
+        function setDefaultDateRange() {
+            const today = new Date();
+            const oneMonthAgo = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+            
+            document.getElementById('endDate').value = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = oneMonthAgo.toISOString().split('T')[0];
+        }
+
+        // Firebase 데이터베이스 함수들
+        async function saveDescriptionToFirebase(descriptionData) {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // descriptions 컬렉션에 데이터 저장
+                const docRef = await addDoc(collection(window.firebaseDb, 'descriptions'), {
+                    ...descriptionData,
+                    timestamp: new Date(),
+                    updatedBy: 'admin'
+                });
+                
+                console.log('디스크립션이 Firebase에 저장되었습니다. ID:', docRef.id);
+                return docRef.id;
+            } catch (error) {
+                console.error('Firebase 저장 오류:', error);
+                throw error;
+            }
+        }
+
+        async function loadDescriptionsFromFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                const querySnapshot = await getDocs(collection(window.firebaseDb, 'descriptions'));
+                const descriptions = [];
+                
+                querySnapshot.forEach((doc) => {
+                    descriptions.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                console.log('Firebase에서 디스크립션을 불러왔습니다:', descriptions);
+                return descriptions;
+            } catch (error) {
+                console.error('Firebase 로드 오류:', error);
+                throw error;
+            }
+        }
+
+        // 디스크립션을 Firebase에 저장하는 함수
+        async function saveDescriptionsToFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // 현재 디스크립션 데이터 수집
+                const descriptionItems = document.querySelectorAll('.description-item');
+                const descriptions = [];
+                
+                descriptionItems.forEach(item => {
+                    const itemId = item.getAttribute('data-id');
+                    const h4 = item.querySelector('h4');
+                    const p = item.querySelector('.description-text p');
+                    
+                    descriptions.push({
+                        id: itemId,
+                        title: h4.textContent,
+                        content: p.textContent,
+                        page: 'media_list_admin'
+                    });
+                });
+                
+                // Firebase에 저장
+                const docRef = await addDoc(collection(window.firebaseDb, 'descriptions'), {
+                    page: 'media_list_admin',
+                    descriptions: descriptions,
+                    updatedAt: serverTimestamp(),
+                    updatedBy: 'admin'
+                });
+                
+                console.log('디스크립션이 Firebase에 저장되었습니다. ID:', docRef.id);
+                return docRef.id;
+            } catch (error) {
+                console.error('Firebase 저장 오류:', error);
+                throw error;
+            }
+        }
+
+        // Firebase에서 게시글 목록 불러오기
+        async function loadPressReleasesFromFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, orderBy, query } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // 최신 등록순으로 정렬하여 불러오기
+                const q = query(collection(window.firebaseDb, 'pressReleases'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                const pressReleases = [];
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    pressReleases.push({
+                        id: doc.id,
+                        ...data,
+                        // 날짜 포맷팅
+                        publicationDateTime: formatDateTime(data.publicationDate, data.publicationTime),
+                        createdAt: data.createdAt ? data.createdAt.toDate() : new Date()
+                    });
+                });
+                
+                console.log('Firebase에서 게시글을 불러왔습니다:', pressReleases);
+                return pressReleases;
+            } catch (error) {
+                console.error('게시글 로드 오류:', error);
+                throw error;
+            }
+        }
+
+        // 날짜와 시간을 포맷팅하는 함수
+        function formatDateTime(date, time) {
+            if (!date || !time) return '';
+            const dateObj = new Date(date);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const hour = String(time).padStart(2, '0');
+            return `${year}-${month}-${day} ${hour}:00`;
+        }
+
+        // 테이블에 게시글 데이터 표시
+        function displayPressReleases(pressReleases) {
+            const tbody = document.querySelector('.data-table tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            pressReleases.forEach((item, index) => {
+                const row = document.createElement('tr');
+                
+                // 노출 여부에 따라 스타일 적용
+                if (item.exposure === 'N') {
+                    row.classList.add('disabled');
+                }
+
+                row.innerHTML = `
+                    <td>${pressReleases.length - index}</td>
+                    <td>${item.language}</td>
+                    <td>${item.category}</td>
+                    <td><span class="title-link" onclick="viewDetail('${item.id}')">${item.title}</span></td>
+                    <td>${item.author}</td>
+                    <td>${item.viewCount || 0}</td>
+                    <td><span class="status-${item.topExposure === 'Y' ? 'y' : 'n'}">${item.topExposure}</span></td>
+                    <td><span class="status-${item.exposure === 'Y' ? 'y' : 'n'}">${item.exposure}</span></td>
+                    <td>${item.publicationDateTime}</td>
+                    <td>${formatDateTime(item.createdAt)}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // 게시글 상세보기
+        function viewDetail(id) {
+            console.log('상세보기:', id);
+            window.location.href = `media_detail_admin.html?id=${id}`;
+        }
+
+        // Firebase 연결 테스트 함수
+        async function testFirebaseConnection() {
+            try {
+                console.log('Firebase 연결 테스트 시작...');
+                
+                // Firebase 연결 확인
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 초기화 실패');
+                }
+                
+                // Firestore 연결 테스트
+                const { collection, addDoc, getDocs, deleteDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // 테스트 데이터 추가
+                const testData = {
+                    message: 'Firebase 연결 테스트',
+                    timestamp: new Date(),
+                    testId: Math.random().toString(36).substr(2, 9)
+                };
+                
+                console.log('테스트 데이터 추가 중...');
+                const docRef = await addDoc(collection(window.firebaseDb, 'connection-test'), testData);
+                console.log('✅ 테스트 데이터 추가 성공! 문서 ID:', docRef.id);
+                
+                // 테스트 데이터 읽기
+                console.log('테스트 데이터 읽기 중...');
+                const querySnapshot = await getDocs(collection(window.firebaseDb, 'connection-test'));
+                const testResults = [];
+                querySnapshot.forEach((doc) => {
+                    testResults.push({ id: doc.id, ...doc.data() });
+                });
+                console.log('✅ 테스트 데이터 읽기 성공! 총', testResults.length, '개 문서');
+                
+                // 테스트 데이터 정리 (방금 추가한 것만 삭제)
+                await deleteDoc(doc(window.firebaseDb, 'connection-test', docRef.id));
+                console.log('✅ 테스트 데이터 정리 완료');
+                
+                // 연결 성공 알림
+                alert('🎉 Firebase 연결 성공!\n\n- Firestore 데이터베이스 연결 확인\n- 데이터 읽기/쓰기 테스트 완료\n- 자세한 내용은 개발자 도구 콘솔을 확인하세요.');
+                
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Firebase 연결 테스트 실패:', error);
+                alert('❌ Firebase 연결 실패!\n\n오류: ' + error.message + '\n\n자세한 내용은 개발자 도구 콘솔을 확인하세요.');
+                return false;
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', async function() {
+            setDefaultDateRange();
+            checkFirebaseConnection();
+            console.log('미디어 관리 보도자료 목록 페이지가 로드되었습니다.');
+            
+            // Firebase 연결 테스트 자동 실행
+            setTimeout(async () => {
+                const isConnected = await testFirebaseConnection();
+                if (isConnected) {
+                    // Firebase 연결 성공 시 게시글 목록 불러오기
+                    try {
+                        const pressReleases = await loadPressReleasesFromFirebase();
+                        displayPressReleases(pressReleases);
+                        console.log('게시글 목록이 성공적으로 로드되었습니다.');
+                    } catch (error) {
+                        console.error('게시글 목록 로드 실패:', error);
+                    }
+                }
+            }, 2000); // 2초 후 자동 테스트
+        });
+
+        // 검색어 입력 시 엔터키 처리
+        document.getElementById('searchKeyword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchPress();
+            }
+        });
+
+        // 디스크립션 편집 모드 토글
+        let isEditMode = false;
+
+        function toggleEditMode() {
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const descriptionItems = document.querySelectorAll('.description-item');
+            
+            isEditMode = !isEditMode;
+            
+            if (isEditMode) {
+                // 편집 모드로 전환
+                editBtn.textContent = '완료';
+                editBtn.classList.add('complete');
+                
+                descriptionItems.forEach(item => {
+                    item.classList.add('edit-mode');
+                    const textDiv = item.querySelector('.description-text');
+                    const formDiv = item.querySelector('.edit-form');
+                    
+                    textDiv.classList.add('hidden');
+                    formDiv.classList.add('active');
+                });
+            } else {
+                // 편집 모드 종료 및 저장
+                editBtn.textContent = '수정';
+                editBtn.classList.remove('complete');
+                
+                descriptionItems.forEach(item => {
+                    item.classList.remove('edit-mode');
+                    const textDiv = item.querySelector('.description-text');
+                    const formDiv = item.querySelector('.edit-form');
+                    const input = formDiv.querySelector('input');
+                    const textarea = formDiv.querySelector('textarea');
+                    const h4 = item.querySelector('h4');
+                    const p = textDiv.querySelector('p');
+                    
+                    // 입력된 값으로 업데이트
+                    const itemId = item.getAttribute('data-id');
+                    h4.textContent = `${itemId}. ${input.value}`;
+                    p.textContent = textarea.value;
+                    
+                    textDiv.classList.remove('hidden');
+                    formDiv.classList.remove('active');
+                });
+                
+                // Firebase에 디스크립션 저장
+                await saveDescriptionsToFirebase();
+                
+                // 저장 완료 알림
+                alert('디스크립션이 성공적으로 수정되었습니다.');
+            }
+        }
+
+        // 편집 모드에서 ESC 키로 취소
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isEditMode) {
+                // 편집 모드 취소
+                const editBtn = document.getElementById('editDescriptionBtn');
+                const descriptionItems = document.querySelectorAll('.description-item');
+                
+                isEditMode = false;
+                editBtn.textContent = '수정';
+                editBtn.classList.remove('complete');
+                
+                descriptionItems.forEach(item => {
+                    item.classList.remove('edit-mode');
+                    const textDiv = item.querySelector('.description-text');
+                    const formDiv = item.querySelector('.edit-form');
+                    
+                    textDiv.classList.remove('hidden');
+                    formDiv.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
