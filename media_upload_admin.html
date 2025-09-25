@@ -16,12 +16,219 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
+            display: flex;
+        }
+
+        /* 왼쪽 사이드바 */
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #34495e;
+            text-align: center;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-arrow {
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+
+        .menu-item.active .menu-arrow {
+            transform: rotate(180deg);
+        }
+
+        .menu-item > a:hover {
+            background-color: #34495e;
+        }
+
+        .menu-item.active > a {
+            background-color: #27ae60;
+        }
+
+        .submenu {
+            display: none;
+            background-color: #34495e;
+        }
+
+        .submenu.show {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 12px 40px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .submenu a:hover {
+            background-color: #2c3e50;
+        }
+
+        .submenu a.active {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-wrapper {
+            flex: 1;
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* 상단 헤더 */
+        .top-header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #007bff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 35px 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            padding: 30px;
+        }
+
+        .content-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* 통합 콘텐츠 영역 */
+        .unified-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        /* 왼쪽 콘텐츠 영역 */
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
             display: flex;
             gap: 20px;
         }
@@ -57,8 +264,7 @@
 
         /* 메인 콘텐츠 */
         .main-content {
-            flex: 1;
-            margin-top: 120px;
+            flex: 1
         }
 
         .form-section {
@@ -321,7 +527,8 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             height: fit-content;
-            margin-top: 120px;
+            position: sticky;
+            top: 140px;
         }
 
         .description-header {
@@ -337,27 +544,62 @@
             color: #333;
         }
 
-        .edit-button {
-            background: #007bff;
+        .add-description-btn {
+            background: #28a745;
             color: white;
             border: none;
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 14px;
+            margin-right: 10px;
             transition: background-color 0.3s;
         }
 
+        .add-description-btn:hover {
+            background: #218838;
+        }
+
+        .save-description-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .save-description-btn:hover {
+            background: #218838;
+        }
+
+        .edit-button {
+            padding: 6px 12px;
+            border: 1px solid #007bff;
+            background: white;
+            color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
         .edit-button:hover {
-            background: #0056b3;
+            background-color: #007bff;
+            color: white;
         }
 
         .edit-button.complete {
-            background: #28a745;
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
         }
 
         .edit-button.complete:hover {
-            background: #1e7e34;
+            background-color: #218838;
         }
 
         .description-item {
@@ -413,15 +655,55 @@
             resize: vertical;
         }
 
+        .item-delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .item-delete-btn:hover {
+            background: #c82333;
+        }
+
+        .description-item {
+            position: relative;
+        }
+
+        .description-item:hover .item-delete-btn {
+            display: flex;
+        }
+
+        .description-item.selected {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .description-item.selected .item-delete-btn {
+            display: flex;
+        }
+
         /* 반응형 */
         @media (max-width: 1200px) {
-            .container {
+            .unified-content {
                 flex-direction: column;
             }
             
             .description-panel {
                 width: 100%;
                 margin-top: 20px;
+                position: static;
             }
         }
 
@@ -463,22 +745,340 @@
             font-size: 12px;
             margin-top: 5px;
         }
+
+        /* 원형 숫자 딱지 스타일 */
+        .badge-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .number-badge {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: move;
+            user-select: none;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .number-badge:hover {
+            transform: scale(1.1);
+        }
+
+        .number-badge.dragging {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* 상단 딱지 영역 */
+        .badge-toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .badge-toolbar .number-badge {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .badge-toolbar .number-badge:hover {
+            transform: scale(1.1);
+        }
+
+        /* 드래그 오버 효과 */
+        .badge-container.drag-over {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 2px dashed #dc3545;
+        }
+
+        /* 드래그 중인 딱지 스타일 */
+        .number-badge.dragging {
+            opacity: 0.5;
+            transform: scale(1.2);
+        }
+
+        /* 디스크립션 패널 스타일 */
+        .description-panel {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 140px;
+            flex-shrink: 0;
+        }
+
+        .description-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .description-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .add-description-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .add-description-btn:hover {
+            background: #218838;
+        }
+
+        .save-description-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .save-description-btn:hover {
+            background: #218838;
+        }
+
+        .edit-button {
+            padding: 4px 8px;
+            border: 1px solid #007bff;
+            background: white;
+            color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .edit-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .delete-description-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-description-btn:hover {
+            background: #c82333;
+        }
+
+        .description-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .description-item:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .description-item.selected {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+        }
+
+        .item-delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .description-item:hover .item-delete-btn {
+            opacity: 1;
+        }
+
+        .description-item.selected .item-delete-btn {
+            opacity: 1;
+        }
+
+        .description-item h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .description-text {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form input,
+        .edit-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .edit-form textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .edit-form input:focus,
+        .edit-form textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
-    <div class="header">
-        <div class="header-top">
-            <div>관리자 페이지</div>
-            <div>Writer: Keunjin2013 | Date / Version: 2025 | page: 2</div>
+    <!-- 왼쪽 사이드바 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Admin</div>
+            <div class="user-info">김은진</div>
         </div>
-        <div class="header-title">미디어 관리 > 보도자료 > 등록</div>
+        <nav class="sidebar-menu">
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>운영자 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">운영자 관리</a>
+                    <a href="#">운영자 권한 로그</a>
+                    <a href="#">운영자 로그 기록</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>메인 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">메인 팝업</a>
+                    <a href="#">메인 롤링</a>
+                    <a href="#">지속가능경영</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>투자 정보 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">재무정보</a>
+                    <a href="#">주주소등</a>
+                    <a href="#">주주종회</a>
+                    <a href="#">IR 자료실</a>
+                </div>
+            </div>
+            <div class="menu-item active">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>미디어 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu show">
+                    <a href="media_list_admin.html" class="active">보도자료</a>
+                </div>
+            </div>
+        </nav>
     </div>
 
-    <div class="container">
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-wrapper">
+        <!-- 상단 헤더 -->
+        <div class="top-header">
+            <div class="header-left">
+                <div class="breadcrumb">
+                    <a href="#">미디어 관리</a> > <a href="#">보도자료</a> > <span>등록</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="검색어 입력">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-avatar">김</div>
+            </div>
+        </div>
+
         <!-- 메인 콘텐츠 -->
         <div class="main-content">
-            <div class="form-section">
+            <h1 class="content-title">보도자료 등록</h1>
+            
+            <!-- 원형 숫자 딱지 툴바 -->
+            <div class="badge-toolbar" id="badgeToolbar">
+                <!-- 디스크립션과 매칭되는 원형 딱지들이 여기에 동적으로 생성됩니다 -->
+            </div>
+            
+            <div class="content-wrapper">
+                <!-- 통합 콘텐츠 영역 -->
+                <div class="unified-content">
+                    <!-- 왼쪽 콘텐츠 영역 -->
+                    <div class="left-content">
+                        <!-- 드래그 가능한 영역 -->
+                        <div class="badge-container" id="badgeContainer">
+                            <div class="form-section">
                 <form id="pressReleaseForm">
                     <!-- 언어 선택 -->
                     <div class="form-group">
@@ -669,49 +1269,26 @@
                     </div>
                 </form>
             </div>
-        </div>
-
-        <!-- 설명 패널 -->
-        <div class="description-panel">
+                        </div>
+                    </div>
+                    
+                    <!-- 오른쪽 디스크립션 패널 -->
+                    <div class="description-panel">
             <div class="description-header">
                 <div class="description-title">Description</div>
-                <button class="edit-button" id="editDescriptionBtn" onclick="toggleDescriptionEditMode()">수정</button>
-            </div>
-            
-            <div class="description-item" data-id="1">
-                <h4>1. 카테고리</h4>
-                <div class="description-text">
-                    <p>- 기업 / 기술 / ESG / 기타<br>- 디폴트: 기업</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="카테고리" placeholder="제목">
-                    <textarea placeholder="설명">- 기업 / 기술 / ESG / 기타<br>- 디폴트: 기업</textarea>
+                <div>
+                    <button class="add-description-btn" id="addDescriptionBtn" onclick="addNewDescription()" title="새 디스크립션 추가">추가</button>
+                    <button class="edit-button" id="editDescriptionBtn" onclick="toggleEditMode()">수정</button>
+                    <button class="delete-description-btn" id="deleteDescriptionBtn" onclick="deleteSelectedDescription()" style="display: none;">삭제</button>
+                    <button class="save-description-btn" id="saveDescriptionBtn" onclick="saveNewDescription()" style="display: none;">저장</button>
                 </div>
             </div>
             
-            <div class="description-item" data-id="2">
-                <h4>2. 썸네일 영역</h4>
-                <div class="description-text">
-                    <p>- 파일 선택 버튼 클릭 시 썸네일 이미지 업로드<br>- 삭제 버튼 클릭 시 해당 파일 삭제</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="썸네일 영역" placeholder="제목">
-                    <textarea placeholder="설명">- 파일 선택 버튼 클릭 시 썸네일 이미지 업로드<br>- 삭제 버튼 클릭 시 해당 파일 삭제</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="3">
-                <h4>3. 첨부파일</h4>
-                <div class="description-text">
-                    <p>- 첨부파일 등록 시 상세 페이지에서 파일 다운로드 제공<br>- 최대 5개 추가 가능<br>- 삭제 버튼 클릭 시 해당 파일 삭제</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="첨부파일" placeholder="제목">
-                    <textarea placeholder="설명">- 첨부파일 등록 시 상세 페이지에서 파일 다운로드 제공<br>- 최대 5개 추가 가능<br>- 삭제 버튼 클릭 시 해당 파일 삭제</textarea>
+            <!-- Firebase에서 동적으로 로드됩니다 -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -1141,52 +1718,448 @@
             }
         }
 
-        // 디스크립션 수정 모드 토글
-        function toggleDescriptionEditMode() {
-            const editBtn = document.getElementById('editDescriptionBtn');
-            const descriptionItems = document.querySelectorAll('.description-item');
+        // 디스크립션 클릭 핸들러
+        function handleDescriptionClick(event, id) {
+            // 삭제 버튼 클릭 시 이벤트 전파 중단
+            if (event.target.classList.contains('item-delete-btn')) {
+                return;
+            }
             
-            if (editBtn.textContent === '수정') {
-                // 편집 모드 시작
-                editBtn.textContent = '완료';
-                editBtn.classList.add('complete');
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const deleteBtn = document.getElementById('deleteDescriptionBtn');
+            
+            if (editBtn.classList.contains('complete')) {
+                // 편집 모드에서 클릭 시 선택 상태 토글
+                const item = event.currentTarget;
+                const isSelected = item.classList.contains('selected');
                 
-                descriptionItems.forEach(item => {
-                    item.classList.add('edit-mode');
-                    const textDiv = item.querySelector('.description-text');
-                    const formDiv = item.querySelector('.edit-form');
-                    textDiv.classList.add('hidden');
-                    formDiv.classList.add('active');
+                // 모든 항목의 선택 상태 해제
+                document.querySelectorAll('.description-item').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                
+                if (!isSelected) {
+                    item.classList.add('selected');
+                    deleteBtn.style.display = 'inline-block';
+                } else {
+                    deleteBtn.style.display = 'none';
+                }
+            }
+        }
+
+        // 개별 디스크립션 항목 삭제
+        async function deleteDescriptionItem(event, id) {
+            event.stopPropagation();
+            
+            if (confirm('이 디스크립션을 삭제하시겠습니까?')) {
+                const item = document.querySelector(`[data-id="${id}"]`);
+                if (item) {
+                    try {
+                        // Firebase에서 먼저 삭제
+                        await deleteDescriptionFromFirebase(id);
+                        
+                        // Firebase 삭제 성공 후 UI에서 제거
+                        item.remove();
+                        
+                        // 삭제 후 선택 상태 초기화
+                        const deleteBtn = document.getElementById('deleteDescriptionBtn');
+                        deleteBtn.style.display = 'none';
+                        
+                        // 원형 딱지도 함께 삭제
+                        removeBadgeFromToolbar(id);
+                        removeBadgeFromContainer(id);
+                        
+                        // 디스크립션 목록을 다시 로드하여 완전한 동기화
+                        const descriptions = await loadDescriptionsFromFirebase();
+                        displayDescriptionsFromFirebase(descriptions);
+                        
+                        // 딱지 툴바도 다시 생성
+                        createBadgeToolbar(descriptions);
+                        
+                        console.log('디스크립션이 성공적으로 삭제되었습니다:', id);
+                    } catch (error) {
+                        console.error('디스크립션 삭제 실패:', error);
+                        alert('디스크립션 삭제 중 오류가 발생했습니다: ' + error.message);
+                    }
+                }
+            }
+        }
+
+        // 선택된 디스크립션 삭제
+        async function deleteSelectedDescription() {
+            const selectedItem = document.querySelector('.description-item.selected');
+            if (selectedItem) {
+                const id = selectedItem.getAttribute('data-id');
+                await deleteDescriptionItem({ stopPropagation: () => {} }, id);
+            }
+        }
+
+        // 디스크립션 수정 모드 토글
+        function toggleEditMode() {
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const addBtn = document.getElementById('addDescriptionBtn');
+            const saveBtn = document.getElementById('saveDescriptionBtn');
+            const deleteBtn = document.getElementById('deleteDescriptionBtn');
+            
+            if (editBtn.classList.contains('complete')) {
+                // 편집 모드 종료
+                editBtn.classList.remove('complete');
+                editBtn.textContent = '수정';
+                addBtn.style.display = 'inline-block';
+                saveBtn.style.display = 'none';
+                deleteBtn.style.display = 'none';
+                
+                // 모든 항목의 편집 모드 해제
+                document.querySelectorAll('.description-item').forEach(item => {
+                    const oldId = item.getAttribute('data-id');
+                    const form = item.querySelector('.edit-form');
+                    const idInput = form ? form.querySelector('.id-input') : null;
+                    const newId = idInput ? idInput.value : oldId;
+                    
+                    // ID가 변경된 경우 딱지 동기화
+                    if (newId !== oldId) {
+                        // 기존 딱지 제거
+                        removeBadgeFromToolbar(oldId);
+                        removeBadgeFromContainer(oldId);
+                        
+                        // 새 ID로 딱지 추가
+                        addBadgeToToolbar(newId);
+                        
+                        // data-id 업데이트
+                        item.setAttribute('data-id', newId);
+                        
+                        // 제목 업데이트
+                        const titleInput = form.querySelector('input[type="text"]');
+                        const h4 = item.querySelector('h4');
+                        if (titleInput && h4) {
+                            h4.textContent = `${newId}. ${titleInput.value}`;
+                        }
+                    }
+                    
+                    item.classList.remove('edit-mode', 'selected');
+                    const text = item.querySelector('.description-text');
+                    if (text && form) {
+                        text.style.display = 'block';
+                        form.style.display = 'none';
+                    }
                 });
             } else {
-                // 편집 모드 종료 및 저장
-                editBtn.textContent = '수정';
-                editBtn.classList.remove('complete');
+                // 편집 모드 시작
+                editBtn.classList.add('complete');
+                editBtn.textContent = '완료';
+                addBtn.style.display = 'none';
+                saveBtn.style.display = 'none';
                 
-                descriptionItems.forEach(item => {
+                // 모든 항목을 편집 모드로 전환
+                document.querySelectorAll('.description-item').forEach(item => {
+                    item.classList.add('edit-mode');
+                    const text = item.querySelector('.description-text');
+                    const form = item.querySelector('.edit-form');
+                    if (text && form) {
+                        text.style.display = 'none';
+                        form.style.display = 'block';
+                        
+                        // ID 입력 필드가 없으면 동적으로 생성
+                        if (!form.querySelector('.id-input')) {
+                            const idInput = document.createElement('input');
+                            idInput.type = 'number';
+                            idInput.value = item.getAttribute('data-id');
+                            idInput.placeholder = '번호';
+                            idInput.min = '1';
+                            idInput.className = 'id-input';
+                            idInput.style.cssText = 'width: 60px; margin-right: 10px;';
+                            
+                            const titleInput = form.querySelector('input[type="text"]');
+                            if (titleInput) {
+                                titleInput.style.width = 'calc(100% - 80px)';
+                                form.insertBefore(idInput, titleInput);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // 새로운 디스크립션 추가 함수
+        function addNewDescription() {
+            const descriptionPanel = document.querySelector('.description-panel');
+            const existingItems = document.querySelectorAll('.description-item');
+            // 기존 항목들의 최대 ID를 찾아서 새 ID 생성
+            let maxId = 0;
+            existingItems.forEach(item => {
+                const id = parseInt(item.getAttribute('data-id')) || 0;
+                if (id > maxId) maxId = id;
+            });
+            const newId = maxId + 1;
+            
+            const newDescriptionItem = document.createElement('div');
+            newDescriptionItem.className = 'description-item new-item';
+            newDescriptionItem.setAttribute('data-id', newId);
+            
+            newDescriptionItem.innerHTML = `
+                <button class="item-delete-btn" onclick="deleteDescriptionItem(event, '${newId}')" title="삭제">×</button>
+                <h4>${newId}. 새 항목</h4>
+                <div class="description-text">
+                    <p>- 새로 추가된 디스크립션 항목입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="number" value="${newId}" placeholder="번호" min="1" class="id-input" style="width: 60px; margin-right: 10px;">
+                    <input type="text" value="새 항목" placeholder="제목" style="width: calc(100% - 80px);">
+                    <textarea placeholder="설명">- 새로 추가된 디스크립션 항목입니다.</textarea>
+                </div>
+            `;
+            
+            // 최상단에 추가 (첫 번째 description-item 앞에)
+            const firstItem = descriptionPanel.querySelector('.description-item');
+            if (firstItem) {
+                firstItem.insertAdjacentElement('beforebegin', newDescriptionItem);
+            } else {
+                // description-item이 없는 경우 description-header 뒤에 추가
+                const header = descriptionPanel.querySelector('.description-header');
+                header.insertAdjacentElement('afterend', newDescriptionItem);
+            }
+            
+            // 새로 추가된 항목을 편집 모드로 설정
+            newDescriptionItem.classList.add('edit-mode');
+            const editForm = newDescriptionItem.querySelector('.edit-form');
+            const descriptionText = newDescriptionItem.querySelector('.description-text');
+            if (editForm && descriptionText) {
+                editForm.style.display = 'block';
+                descriptionText.style.display = 'none';
+            }
+            
+            // 편집 모드 활성화
+            isEditMode = true;
+            
+            // 버튼 상태 변경: 수정 버튼 숨기고 저장 버튼 표시
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const saveBtn = document.getElementById('saveDescriptionBtn');
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'inline-block';
+            
+            // 새로운 딱지를 툴바에 자동 추가
+            addBadgeToToolbar(newId);
+        }
+
+        // 새 디스크립션 저장 함수
+        async function saveNewDescription() {
+            try {
+                // 새로 추가된 항목들을 찾아서 저장
+                const newItems = document.querySelectorAll('.description-item.new-item');
+                
+                if (newItems.length === 0) {
+                    alert('저장할 새로운 디스크립션이 없습니다.');
+                    return;
+                }
+                
+                // ID 검증
+                for (let item of newItems) {
+                    const idInput = item.querySelector('.id-input');
+                    if (idInput) {
+                        const newId = idInput.value.trim();
+                        if (!newId) {
+                            alert('번호를 입력해주세요.');
+                            return;
+                        }
+                        if (checkDuplicateId(newId, item.getAttribute('data-id'))) {
+                            alert('이미 해당되는 번호가 있습니다.');
+                            return;
+                        }
+                    }
+                }
+                
+                // Firebase에 저장
+                await saveDescriptionsToFirebase();
+                
+                // 새 항목들을 일반 디스크립션으로 변환
+                newItems.forEach(item => {
+                    const oldId = item.getAttribute('data-id');
+                    const editForm = item.querySelector('.edit-form');
+                    const idInput = editForm ? editForm.querySelector('.id-input') : null;
+                    const newId = idInput ? idInput.value : oldId;
+                    
+                    // ID가 변경된 경우 딱지 동기화
+                    if (newId !== oldId) {
+                        // 기존 딱지 제거
+                        removeBadgeFromToolbar(oldId);
+                        removeBadgeFromContainer(oldId);
+                        
+                        // 새 ID로 딱지 추가
+                        addBadgeToToolbar(newId);
+                        
+                        // data-id 업데이트
+                        item.setAttribute('data-id', newId);
+                    }
+                    
+                    // new-item 클래스 제거
+                    item.classList.remove('new-item');
+                    
+                    // 편집 모드 해제
                     item.classList.remove('edit-mode');
-                    const textDiv = item.querySelector('.description-text');
-                    const formDiv = item.querySelector('.edit-form');
-                    const input = formDiv.querySelector('input');
-                    const textarea = formDiv.querySelector('textarea');
-                    const h4 = item.querySelector('h4');
-                    const p = textDiv.querySelector('p');
                     
-                    // 입력된 값으로 업데이트
-                    const itemId = item.getAttribute('data-id');
-                    h4.textContent = `${itemId}. ${input.value}`;
-                    p.textContent = textarea.value;
-                    
-                    textDiv.classList.remove('hidden');
-                    formDiv.classList.remove('active');
+                    // 편집 폼 숨기고 일반 텍스트 표시
+                    const descriptionText = item.querySelector('.description-text');
+                    if (editForm && descriptionText) {
+                        editForm.style.display = 'none';
+                        descriptionText.style.display = 'block';
+                        
+                        // 입력된 값으로 텍스트 업데이트
+                        const titleInput = editForm.querySelector('input[type="text"]');
+                        const textarea = editForm.querySelector('textarea');
+                        const h4 = item.querySelector('h4');
+                        const p = descriptionText.querySelector('p');
+                        
+                        if (titleInput && h4) {
+                            // 번호를 포함한 제목으로 업데이트
+                            h4.textContent = `${newId}. ${titleInput.value}`;
+                        }
+                        if (textarea && p) {
+                            p.textContent = textarea.value;
+                        }
+                    }
                 });
                 
-                // Firebase에 디스크립션 저장
-                saveDescriptionsToFirebase();
+                // 편집 모드 해제
+                isEditMode = false;
                 
-                // 저장 완료 알림
-                alert('디스크립션이 성공적으로 수정되었습니다.');
+                // 버튼 상태 복원: 저장 버튼 숨기고 수정 버튼 표시
+                const editBtn = document.getElementById('editDescriptionBtn');
+                const saveBtn = document.getElementById('saveDescriptionBtn');
+                editBtn.style.display = 'inline-block';
+                saveBtn.style.display = 'none';
+                editBtn.textContent = '수정';
+                
+                alert('새로운 디스크립션이 성공적으로 저장되었습니다.');
+                
+            } catch (error) {
+                console.error('디스크립션 저장 오류:', error);
+                alert('디스크립션 저장 중 오류가 발생했습니다: ' + error.message);
             }
+        }
+
+        // Firebase에서 디스크립션 삭제
+        async function deleteDescriptionFromFirebase(id) {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, query, where, limit, updateDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // upload_description 컬렉션에서 해당 ID의 문서 찾기
+                const q = query(
+                    collection(window.firebaseDb, 'upload_description'),
+                    where('page', '==', 'media_upload_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    
+                    // descriptions 배열에서 해당 ID 제거
+                    const updatedDescriptions = data.descriptions.filter(desc => desc.id !== id);
+                    
+                    // 업데이트된 descriptions로 문서 업데이트
+                    await updateDoc(doc(window.firebaseDb, 'upload_description', docSnapshot.id), {
+                        descriptions: updatedDescriptions,
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    
+                    console.log('디스크립션이 Firebase에서 삭제되었습니다:', id);
+                }
+            } catch (error) {
+                console.error('Firebase 삭제 오류:', error);
+            }
+        }
+
+        // Firebase 연결 확인 함수
+        function checkFirebaseConnection() {
+            return window.firebaseDb !== null && window.firebaseDb !== undefined;
+        }
+
+        // Firebase에서 디스크립션을 로드하는 함수
+        async function loadDescriptionsFromFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // upload_description 컬렉션에서 최신 문서 가져오기
+                const q = query(
+                    collection(window.firebaseDb, 'upload_description'),
+                    where('page', '==', 'media_upload_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    console.log('Firebase에서 디스크립션을 불러왔습니다:', data.descriptions);
+                    return data.descriptions || [];
+                } else {
+                    console.log('저장된 디스크립션이 없습니다.');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Firebase 로드 오류:', error);
+                throw error;
+            }
+        }
+
+        // Firebase에서 로드한 디스크립션을 화면에 표시하는 함수
+        function displayDescriptionsFromFirebase(descriptions) {
+            const descriptionPanel = document.querySelector('.description-panel');
+            if (!descriptionPanel) return;
+
+            // 기존 디스크립션 항목들 제거 (헤더 제외)
+            const existingItems = descriptionPanel.querySelectorAll('.description-item');
+            existingItems.forEach(item => item.remove());
+
+            // ID 기준 오름차순으로 정렬
+            descriptions.sort((a, b) => {
+                const aNumber = parseInt(a.id) || 0;
+                const bNumber = parseInt(b.id) || 0;
+                return aNumber - bNumber;
+            });
+
+            // Firebase에서 로드한 디스크립션들을 화면에 표시
+            descriptions.forEach(desc => {
+                const descriptionItem = document.createElement('div');
+                descriptionItem.className = 'description-item';
+                descriptionItem.setAttribute('data-id', desc.id);
+                
+                descriptionItem.innerHTML = `
+                    <button class="item-delete-btn" onclick="deleteDescriptionItem(event, '${desc.id}')" title="삭제">×</button>
+                    <h4>${desc.title}</h4>
+                    <div class="description-text">
+                        <p>${desc.content}</p>
+                    </div>
+                    <div class="edit-form">
+                        <input type="number" value="${desc.id}" placeholder="번호" min="1" class="id-input" style="width: 60px; margin-right: 10px;">
+                        <input type="text" value="${desc.title.replace(/^\d+\.\s*/, '')}" placeholder="제목" style="width: calc(100% - 80px);">
+                        <textarea placeholder="설명">${desc.content}</textarea>
+                    </div>
+                `;
+
+                // 클릭 이벤트 추가
+                descriptionItem.addEventListener('click', function(event) {
+                    handleDescriptionClick(event, desc.id);
+                });
+
+                // description-header 뒤에 추가
+                const header = descriptionPanel.querySelector('.description-header');
+                header.insertAdjacentElement('afterend', descriptionItem);
+            });
+
+            console.log('디스크립션이 화면에 표시되었습니다:', descriptions.length, '개');
         }
 
         // 디스크립션을 Firebase에 저장하는 함수
@@ -1196,7 +2169,18 @@
                     throw new Error('Firebase 연결이 필요합니다.');
                 }
 
-                const { collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                const { 
+                    collection, 
+                    addDoc, 
+                    updateDoc, 
+                    doc, 
+                    getDocs, 
+                    query, 
+                    where, 
+                    orderBy, 
+                    limit, 
+                    serverTimestamp 
+                } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
                 
                 // 현재 디스크립션 데이터 수집
                 const descriptionItems = document.querySelectorAll('.description-item');
@@ -1205,26 +2189,72 @@
                 descriptionItems.forEach(item => {
                     const itemId = item.getAttribute('data-id');
                     const h4 = item.querySelector('h4');
-                    const p = item.querySelector('.description-text p');
+                    
+                    // 편집 모드인지 확인
+                    const editForm = item.querySelector('.edit-form');
+                    const descriptionText = item.querySelector('.description-text');
+                    
+                    let title, content;
+                    
+                    if (editForm && editForm.style.display !== 'none') {
+                        // 편집 모드인 경우 - input과 textarea에서 값 가져오기
+                        const idInput = editForm.querySelector('.id-input');
+                        const titleInput = editForm.querySelector('input[type="text"]');
+                        const textarea = editForm.querySelector('textarea');
+                        
+                        const finalId = idInput ? idInput.value : itemId;
+                        title = titleInput ? `${finalId}. ${titleInput.value}` : h4.textContent;
+                        content = textarea ? textarea.value : '';
+                        
+                        // ID가 변경된 경우 data-id 업데이트
+                        if (finalId !== itemId) {
+                            item.setAttribute('data-id', finalId);
+                        }
+                    } else {
+                        // 일반 모드인 경우 - 기존 방식
+                        const p = descriptionText ? descriptionText.querySelector('p') : null;
+                        title = h4.textContent;
+                        content = p ? p.textContent : '';
+                    }
                     
                     descriptions.push({
-                        id: itemId,
-                        title: h4.textContent,
-                        content: p.textContent,
+                        id: item.getAttribute('data-id'),
+                        title: title,
+                        content: content,
                         page: 'media_upload_admin'
                     });
                 });
                 
-                // Firebase에 저장
-                const docRef = await addDoc(collection(window.firebaseDb, 'descriptions'), {
-                    page: 'media_upload_admin',
-                    descriptions: descriptions,
-                    updatedAt: serverTimestamp(),
-                    updatedBy: 'admin'
-                });
+                // 기존 문서 찾기 (인덱스 문제 방지를 위해 orderBy 제거)
+                const q = query(
+                    collection(window.firebaseDb, 'upload_description'),
+                    where('page', '==', 'media_upload_admin'),
+                    limit(1)
+                );
                 
-                console.log('디스크립션이 Firebase에 저장되었습니다. ID:', docRef.id);
-                return docRef.id;
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    // 기존 문서 업데이트
+                    const docSnapshot = querySnapshot.docs[0];
+                    await updateDoc(doc(window.firebaseDb, 'upload_description', docSnapshot.id), {
+                        descriptions: descriptions,
+                        updatedAt: serverTimestamp(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('디스크립션이 Firebase에서 업데이트되었습니다. 문서 ID:', docSnapshot.id);
+                    return docSnapshot.id;
+                } else {
+                    // 새 문서 생성
+                    const docRef = await addDoc(collection(window.firebaseDb, 'upload_description'), {
+                        page: 'media_upload_admin',
+                        descriptions: descriptions,
+                        updatedAt: serverTimestamp(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('디스크립션이 Firebase에 새로 저장되었습니다. 문서 ID:', docRef.id);
+                    return docRef.id;
+                }
             } catch (error) {
                 console.error('Firebase 저장 오류:', error);
                 throw error;
@@ -1244,13 +2274,396 @@
             }
         });
 
+        // HTML 디스크립션 항목들을 ID 기준으로 정렬하는 함수
+        function sortHtmlDescriptions() {
+            const descriptionPanel = document.querySelector('.description-panel');
+            if (!descriptionPanel) return;
+
+            const descriptionItems = Array.from(descriptionPanel.querySelectorAll('.description-item'));
+            
+            // ID 기준으로 정렬
+            descriptionItems.sort((a, b) => {
+                const aId = parseInt(a.getAttribute('data-id')) || 0;
+                const bId = parseInt(b.getAttribute('data-id')) || 0;
+                return aId - bId;
+            });
+
+            // 정렬된 순서로 DOM에 다시 추가
+            descriptionItems.forEach(item => {
+                descriptionPanel.appendChild(item);
+            });
+        }
+
         // 페이지 로드 시 초기화
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
             console.log('보도자료 등록 페이지가 로드되었습니다.');
             
             // 에디터 초기 내용 설정
             document.getElementById('editorContent').innerHTML = '<div><br></div>';
+            
+            // HTML 디스크립션 항목들 정렬
+            sortHtmlDescriptions();
+            
+            // 드래그 영역 설정
+            setupDropZone();
+            
+            // Firebase 연결 확인 후 디스크립션 불러오기
+            setTimeout(async () => {
+                if (checkFirebaseConnection()) {
+                    try {
+                        const descriptions = await loadDescriptionsFromFirebase();
+                        displayDescriptionsFromFirebase(descriptions);
+                        
+                        // 딱지 툴바 생성
+                        createBadgeToolbar(descriptions);
+                        
+                        // 딱지 위치 불러오기 및 복원
+                        const savedPositions = await loadBadgePositionsFromFirebase();
+                        restoreBadgePositions(savedPositions);
+                        
+                        console.log('디스크립션이 성공적으로 로드되었습니다.');
+                    } catch (error) {
+                        console.error('디스크립션 로드 실패:', error);
+                    }
+                } else {
+                    console.error('Firebase 연결이 실패했습니다.');
+                }
+            }, 1000);
         });
+
+        // 사이드바 메뉴 토글 함수
+        function toggleSubmenu(element) {
+            const menuItem = element.parentElement;
+            const submenu = menuItem.querySelector('.submenu');
+            
+            // 다른 메뉴들의 서브메뉴 닫기
+            document.querySelectorAll('.submenu').forEach(sub => {
+                if (sub !== submenu) {
+                    sub.classList.remove('show');
+                }
+            });
+            
+            // 다른 메뉴들의 active 클래스 제거
+            document.querySelectorAll('.menu-item').forEach(item => {
+                if (item !== menuItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // 현재 메뉴 토글
+            if (submenu.classList.contains('show')) {
+                submenu.classList.remove('show');
+                menuItem.classList.remove('active');
+            } else {
+                submenu.classList.add('show');
+                menuItem.classList.add('active');
+            }
+        }
+
+        // 원형 숫자 딱지 관련 변수
+        let draggedBadge = null;
+        let badgePositions = {};
+
+        // 디스크립션과 매칭되는 원형 딱지 생성
+        function createBadgeToolbar(descriptions) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            badgeToolbar.innerHTML = '';
+
+            descriptions.forEach(desc => {
+                const badge = document.createElement('div');
+                badge.className = 'number-badge';
+                badge.textContent = desc.id;
+                badge.setAttribute('data-id', desc.id);
+                badge.setAttribute('draggable', 'true');
+                
+                // 드래그 이벤트 리스너 추가
+                badge.addEventListener('dragstart', handleDragStart);
+                badge.addEventListener('dragend', handleDragEnd);
+                
+                badgeToolbar.appendChild(badge);
+            });
+        }
+
+        // 특정 ID의 딱지를 툴바에 추가
+        function addBadgeToToolbar(badgeId) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            // 이미 존재하는지 확인
+            const existingBadge = badgeToolbar.querySelector(`[data-id="${badgeId}"]`);
+            if (existingBadge) return;
+
+            const badge = document.createElement('div');
+            badge.className = 'number-badge';
+            badge.textContent = badgeId;
+            badge.setAttribute('data-id', badgeId);
+            badge.setAttribute('draggable', 'true');
+            
+            // 드래그 이벤트 리스너 추가
+            badge.addEventListener('dragstart', handleDragStart);
+            badge.addEventListener('dragend', handleDragEnd);
+            
+            badgeToolbar.appendChild(badge);
+            console.log(`딱지 ${badgeId}가 툴바에 추가되었습니다.`);
+        }
+
+        // 특정 ID의 딱지를 툴바에서 제거
+        function removeBadgeFromToolbar(badgeId) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            const badge = badgeToolbar.querySelector(`[data-id="${badgeId}"]`);
+            if (badge) {
+                badge.remove();
+                console.log(`딱지 ${badgeId}가 툴바에서 제거되었습니다.`);
+            }
+        }
+
+        // 특정 ID의 딱지를 드래그 영역에서 제거
+        function removeBadgeFromContainer(badgeId) {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            const badge = badgeContainer.querySelector(`[data-id="${badgeId}"]`);
+            if (badge) {
+                badge.remove();
+                console.log(`딱지 ${badgeId}가 드래그 영역에서 제거되었습니다.`);
+            }
+        }
+
+        // 드래그 시작
+        function handleDragStart(e) {
+            draggedBadge = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.outerHTML);
+        }
+
+        // 드래그 종료
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            draggedBadge = null;
+        }
+
+        // 드래그 가능한 영역에 드롭 이벤트 추가
+        function setupDropZone() {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            badgeContainer.addEventListener('dragover', handleDragOver);
+            badgeContainer.addEventListener('drop', handleDrop);
+            badgeContainer.addEventListener('dragenter', handleDragEnter);
+            badgeContainer.addEventListener('dragleave', handleDragLeave);
+        }
+
+        // 드래그 오버
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        // 드래그 엔터
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('drag-over');
+        }
+
+        // 드래그 리브
+        function handleDragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        // 드롭 처리
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('drag-over');
+            
+            if (!draggedBadge) return;
+
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // 새로운 딱지 생성
+            const newBadge = document.createElement('div');
+            newBadge.className = 'number-badge';
+            newBadge.textContent = draggedBadge.textContent;
+            newBadge.setAttribute('data-id', draggedBadge.getAttribute('data-id'));
+            newBadge.style.left = x + 'px';
+            newBadge.style.top = y + 'px';
+            newBadge.style.position = 'absolute';
+
+            // 클릭 이벤트로 위치 조정 가능하도록 설정
+            newBadge.addEventListener('click', function() {
+                this.style.cursor = 'move';
+            });
+
+            // 마우스 다운으로 드래그 가능하도록 설정
+            newBadge.addEventListener('mousedown', handleMouseDown);
+
+            // 컨테이너에 추가
+            e.target.appendChild(newBadge);
+
+            // 위치 저장
+            const badgeId = draggedBadge.getAttribute('data-id');
+            badgePositions[badgeId] = { x: x, y: y };
+            
+            // Firebase에 위치 저장
+            saveBadgePositionToFirebase(badgeId, x, y);
+        }
+
+        // 마우스 다운으로 드래그 시작
+        function handleMouseDown(e) {
+            const badge = e.target;
+            const startX = e.clientX - badge.offsetLeft;
+            const startY = e.clientY - badge.offsetTop;
+
+            function handleMouseMove(e) {
+                const x = e.clientX - startX;
+                const y = e.clientY - startY;
+                
+                badge.style.left = x + 'px';
+                badge.style.top = y + 'px';
+            }
+
+            function handleMouseUp(e) {
+                const x = e.clientX - startX;
+                const y = e.clientY - startY;
+                
+                // 위치 저장
+                const badgeId = badge.getAttribute('data-id');
+                badgePositions[badgeId] = { x: x, y: y };
+                
+                // Firebase에 위치 저장
+                saveBadgePositionToFirebase(badgeId, x, y);
+                
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+            }
+
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        }
+
+        // Firebase에 딱지 위치 저장
+        async function saveBadgePositionToFirebase(badgeId, x, y) {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, updateDoc, doc, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // badge_positions 컬렉션에서 해당 페이지의 위치 정보 찾기
+                const q = query(
+                    collection(window.firebaseDb, 'badge_positions'),
+                    where('page', '==', 'media_upload_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    // 기존 문서 업데이트
+                    const docSnapshot = querySnapshot.docs[0];
+                    const currentData = docSnapshot.data();
+                    const positions = currentData.positions || {};
+                    positions[badgeId] = { x: x, y: y };
+                    
+                    await updateDoc(doc(window.firebaseDb, 'badge_positions', docSnapshot.id), {
+                        positions: positions,
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('딱지 위치가 Firebase에서 업데이트되었습니다.');
+                } else {
+                    // 새 문서 생성
+                    const positions = {};
+                    positions[badgeId] = { x: x, y: y };
+                    
+                    await addDoc(collection(window.firebaseDb, 'badge_positions'), {
+                        page: 'media_upload_admin',
+                        positions: positions,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('딱지 위치가 Firebase에 새로 저장되었습니다.');
+                }
+            } catch (error) {
+                console.error('Firebase 위치 저장 오류:', error);
+            }
+        }
+
+        // Firebase에서 딱지 위치 불러오기
+        async function loadBadgePositionsFromFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                const q = query(
+                    collection(window.firebaseDb, 'badge_positions'),
+                    where('page', '==', 'media_upload_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    console.log('Firebase에서 딱지 위치를 불러왔습니다:', data.positions);
+                    return data.positions || {};
+                } else {
+                    console.log('저장된 딱지 위치가 없습니다.');
+                    return {};
+                }
+            } catch (error) {
+                console.error('Firebase 위치 로드 오류:', error);
+                return {};
+            }
+        }
+
+        // 저장된 위치로 딱지 복원
+        function restoreBadgePositions(positions) {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            Object.keys(positions).forEach(badgeId => {
+                const position = positions[badgeId];
+                const badge = document.createElement('div');
+                badge.className = 'number-badge';
+                badge.textContent = badgeId;
+                badge.setAttribute('data-id', badgeId);
+                badge.style.left = position.x + 'px';
+                badge.style.top = position.y + 'px';
+                badge.style.position = 'absolute';
+
+                // 마우스 다운으로 드래그 가능하도록 설정
+                badge.addEventListener('mousedown', handleMouseDown);
+
+                badgeContainer.appendChild(badge);
+            });
+        }
+
+        // 중복 ID 검증 함수
+        function checkDuplicateId(newId, excludeItemId = null) {
+            const existingItems = document.querySelectorAll('.description-item');
+            for (let item of existingItems) {
+                const itemId = item.getAttribute('data-id');
+                if (itemId === newId && itemId !== excludeItemId) {
+                    return true; // 중복 발견
+                }
+            }
+            return false; // 중복 없음
+        }
     </script>
+    </div>
+    </div>
 </body>
 </html>

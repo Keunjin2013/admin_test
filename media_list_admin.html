@@ -16,57 +16,221 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
             display: flex;
-            gap: 20px;
         }
 
-        /* 메인 콘텐츠 */
-        .main-content {
-            flex: 1;
-            margin-top: 120px;
-        }
-
-        /* 테이블과 페이지네이션을 묶은 구역 */
-        .table-pagination-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-top: 120px;
-        }
-
-        /* 헤더 */
-        .header {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        /* 왼쪽 사이드바 */
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            height: 100vh;
             position: fixed;
-            top: 0;
             left: 0;
-            right: 0;
+            top: 0;
+            overflow-y: auto;
             z-index: 1000;
         }
 
-        .header-top {
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #34495e;
+            text-align: center;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-arrow {
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+
+        .menu-item.active .menu-arrow {
+            transform: rotate(180deg);
+        }
+
+        .menu-item > a:hover {
+            background-color: #34495e;
+        }
+
+        .menu-item.active > a {
+            background-color: #27ae60;
+        }
+
+        .submenu {
+            display: none;
+            background-color: #34495e;
+        }
+
+        .submenu.show {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 12px 40px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .submenu a:hover {
+            background-color: #2c3e50;
+        }
+
+        .submenu a.active {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-wrapper {
+            flex: 1;
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* 상단 헤더 */
+        .top-header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .breadcrumb {
             font-size: 14px;
             color: #666;
         }
 
-        .header-title {
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #007bff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 35px 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            padding: 30px;
+        }
+
+        .content-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* 통합 콘텐츠 영역 */
+        .unified-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        /* 왼쪽 콘텐츠 영역 (검색, 테이블, 페이지네이션) */
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 테이블과 페이지네이션을 묶은 구역 */
+        .table-pagination-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         /* 검색/필터 영역 */
@@ -148,7 +312,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             overflow: hidden;
             flex: 1;
-            margin-top: 120px;
         }
 
         .table-header {
@@ -262,9 +425,9 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             height: fit-content;
-            margin-top: 240px;
             position: sticky;
             top: 140px;
+            flex-shrink: 0;
         }
 
         .description-header {
@@ -278,11 +441,41 @@
             font-size: 16px;
             font-weight: bold;
             color: #333;
-            margin: 0;
+        }
+
+        .add-description-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .add-description-btn:hover {
+            background: #218838;
+        }
+
+        .save-description-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .save-description-btn:hover {
+            background: #218838;
         }
 
         .edit-button {
-            padding: 6px 12px;
+            padding: 4px 8px;
             border: 1px solid #007bff;
             background: white;
             color: #007bff;
@@ -378,14 +571,69 @@
             display: none;
         }
 
+        .description-item {
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .description-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .description-item.selected {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+        }
+
+        .delete-description-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-description-btn:hover {
+            background: #c82333;
+        }
+
+        .item-delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .description-item:hover .item-delete-btn {
+            opacity: 1;
+        }
+
+        .description-item.selected .item-delete-btn {
+            opacity: 1;
+        }
+
         /* 반응형 */
         @media (max-width: 1200px) {
-            .container {
+            .unified-content {
                 flex-direction: column;
             }
             
-            .table-pagination-section {
-                margin-top: 20px;
+            .left-content {
+                width: 100%;
             }
             
             .description-panel {
@@ -448,317 +696,277 @@
             color: #dc3545;
             font-weight: bold;
         }
+
+        /* 원형 숫자 딱지 스타일 */
+        .badge-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .number-badge {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: move;
+            user-select: none;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .number-badge:hover {
+            transform: scale(1.1);
+        }
+
+        .number-badge.dragging {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* 상단 딱지 영역 */
+        .badge-toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .badge-toolbar .number-badge {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .badge-toolbar .number-badge:hover {
+            transform: scale(1.1);
+        }
+
+        /* 드래그 오버 효과 */
+        .badge-container.drag-over {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 2px dashed #dc3545;
+        }
+
+        /* 드래그 중인 딱지 스타일 */
+        .number-badge.dragging {
+            opacity: 0.5;
+            transform: scale(1.2);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 헤더 -->
-        <div class="header">
-            <div class="header-top">
-                <div>관리자 페이지</div>
-                <div>Writer: Keunjin2013 | Date / Version: 2025 | page 1</div>
-            </div>
-            <div class="header-title">미디어 관리 > 보도자료 > 목록</div>
-            <!-- 검색/필터 영역 -->
-            <div class="search-section">
-                <form class="search-form">
-                    <div class="form-group">
-                        <label>날짜</label>
-                        <div class="date-range">
-                            <input type="date" class="form-control" id="startDate">
-                            <span>~</span>
-                            <input type="date" class="form-control" id="endDate">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>언어</label>
-                        <select class="form-control" id="language">
-                            <option value="">전체</option>
-                            <option value="KR">KR</option>
-                            <option value="EN">EN</option>
-                            <option value="CN">CN</option>
-                            <option value="JP">JP</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>카테고리</label>
-                        <select class="form-control" id="category">
-                            <option value="">전체</option>
-                            <option value="기업">기업</option>
-                            <option value="기술">기술</option>
-                            <option value="ESG">ESG</option>
-                            <option value="기타">기타</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>검색</label>
-                        <div class="search-input-group">
-                            <select class="form-control" id="searchType" style="min-width: 80px;">
-                                <option value="all">전체</option>
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                            </select>
-                            <input type="text" class="form-control" id="searchKeyword" placeholder="검색어 입력" style="min-width: 200px;">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>&nbsp;</label>
-                        <button type="button" class="btn btn-primary" onclick="searchPress()">검색</button>
-                    </div>
-                </form>
-            </div>
+    <!-- 왼쪽 사이드바 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Admin</div>
+            <div class="user-info">김은진</div>
         </div>
-
-        <!-- 테이블과 페이지네이션을 묶은 구역 -->
-        <div class="table-pagination-section">
-            <!-- 테이블 영역 -->
-            <div class="table-section">
-                <div class="table-header">
-                    <div class="table-title">게시물 목록 (최신 등록순)</div>
-                </div>
-                
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 60px;">번호</th>
-                                <th style="width: 60px;">언어</th>
-                                <th style="width: 80px;">카테고리</th>
-                                <th style="width: 300px;">제목</th>
-                                <th style="width: 80px;">작성자</th>
-                                <th style="width: 80px;">조회수</th>
-                                <th style="width: 80px;">상위노출</th>
-                                <th style="width: 80px;">노출여부</th>
-                                <th style="width: 120px;">발행일시</th>
-                                <th style="width: 120px;">등록일시</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>15</td>
-                                <td>KR</td>
-                                <td>기업</td>
-                                <td><span class="title-link" onclick="viewDetail(15)">DB하이텍, 2024년 매출액 1조 1,310억원, 영업이익 1,950억원</span></td>
-                                <td>관*자</td>
-                                <td>1212</td>
-                                <td><span class="status-y">Y</span></td>
-                                <td><span class="status-y">Y</span></td>
-                                <td>2024-05-20 17:00</td>
-                                <td>2024-05-19 17:00</td>
-                            </tr>
-                            <tr>
-                                <td>14</td>
-                                <td>EN</td>
-                                <td>기술</td>
-                                <td><span class="title-link" onclick="viewDetail(14)">Samsung Electronics Announces New AI Chip Technology</span></td>
-                                <td>관*자</td>
-                                <td>856</td>
-                                <td><span class="status-n">N</span></td>
-                                <td><span class="status-y">Y</span></td>
-                                <td>2024-05-19 14:30</td>
-                                <td>2024-05-18 14:30</td>
-                            </tr>
-                            <tr>
-                                <td>13</td>
-                                <td>KR</td>
-                                <td>ESG</td>
-                                <td><span class="title-link" onclick="viewDetail(13)">삼성전자, 지속가능경영 보고서 발간</span></td>
-                                <td>관*자</td>
-                                <td>743</td>
-                                <td><span class="status-y">Y</span></td>
-                                <td><span class="status-y">Y</span></td>
-                                <td>2024-05-18 11:00</td>
-                                <td>2024-05-17 11:00</td>
-                            </tr>
-                            <tr class="disabled">
-                                <td>12</td>
-                                <td>CN</td>
-                                <td>기타</td>
-                                <td><span class="title-link" onclick="viewDetail(12)">三星电子发布2024年第一季度财报</span></td>
-                                <td>관*자</td>
-                                <td>432</td>
-                                <td><span class="status-n">N</span></td>
-                                <td><span class="status-n">N</span></td>
-                                <td>2024-05-17 09:00</td>
-                                <td>2024-05-16 09:00</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>JP</td>
-                                <td>기업</td>
-                                <td><span class="title-link" onclick="viewDetail(11)">サムスン電子、2024年第1四半期決算発表</span></td>
-                                <td>관*자</td>
-                                <td>298</td>
-                                <td><span class="status-n">N</span></td>
-                                <td><span class="status-y">Y</span></td>
-                                <td>2024-05-16 16:00</td>
-                                <td>2024-05-15 16:00</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>KR</td>
-                                <td>기술</td>
-                                <td><span class="title-link" onclick="viewDetail(10)">SK하이닉스, 차세대 메모리 기술 개발 성과 발표</span></td>
-                                <td>관*자</td>
-                                <td>567</td>
-                                <td><span class="status-y">Y</span></td>
-                                <td><span class="status-y">Y</span></td>
-                                <td>2024-05-15 13:00</td>
-                                <td>2024-05-14 13:00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <nav class="sidebar-menu">
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>운영자 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">운영자 관리</a>
+                    <a href="#">운영자 권한 로그</a>
+                    <a href="#">운영자 로그 기록</a>
                 </div>
             </div>
-
-            <!-- 페이지네이션 및 등록 버튼 -->
-            <div class="pagination-section">
-                <div class="pagination">
-                    <button onclick="goToPage('first')" title="첫 페이지"><<</button>
-                    <button onclick="goToPage('prev')" title="이전 페이지"><</button>
-                    <button class="active" onclick="goToPage(1)">1</button>
-                    <button onclick="goToPage(2)">2</button>
-                    <button onclick="goToPage(3)">3</button>
-                    <button onclick="goToPage(4)">4</button>
-                    <button onclick="goToPage(5)">5</button>
-                    <button onclick="goToPage(6)">6</button>
-                    <button onclick="goToPage(7)">7</button>
-                    <button onclick="goToPage(8)">8</button>
-                    <button onclick="goToPage(9)">9</button>
-                    <button onclick="goToPage(10)">10</button>
-                    <button onclick="goToPage('next')" title="다음 페이지">></button>
-                    <button onclick="goToPage('last')" title="마지막 페이지">>></button>
-                </div>
-                
-                <button class="btn btn-primary register-button" onclick="registerNew()">등록</button>
-            </div>
-        </div>
-
-        <!-- 설명 패널 -->
-        <div class="description-panel">
-            <div class="description-header">
-                <div class="description-title">Description</div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="edit-button" id="editDescriptionBtn" onclick="toggleEditMode()">수정</button>
-                    <button class="edit-button" onclick="testFirebaseConnection()" style="background-color: #28a745; border-color: #28a745; color: white;">Firebase 테스트</button>
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>메인 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">메인 팝업</a>
+                    <a href="#">메인 롤링</a>
+                    <a href="#">지속가능경영</a>
                 </div>
             </div>
-            
-            <div class="description-item" data-id="1">
-                <h4>1. 게시물 목록</h4>
-                <div class="description-text">
-                    <p>- 정렬 기준은 "최신 등록순"입니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="게시물 목록" placeholder="제목">
-                    <textarea placeholder="설명">- 정렬 기준은 "최신 등록순"입니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="2">
-                <h4>2. 언어</h4>
-                <div class="description-text">
-                    <p>- "KR, EN, CN, JP"를 지원하며, 게시물 등록 시 선택한 언어가 노출됩니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="언어" placeholder="제목">
-                    <textarea placeholder="설명">- "KR, EN, CN, JP"를 지원하며, 게시물 등록 시 선택한 언어가 노출됩니다.</textarea>
+            <div class="menu-item">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>투자 정보 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu">
+                    <a href="#">재무정보</a>
+                    <a href="#">주주소등</a>
+                    <a href="#">주주종회</a>
+                    <a href="#">IR 자료실</a>
                 </div>
             </div>
-            
-            <div class="description-item" data-id="3">
-                <h4>3. 카테고리</h4>
-                <div class="description-text">
-                    <p>- "기업, 기술, ESG, 기타" 카테고리가 있습니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="카테고리" placeholder="제목">
-                    <textarea placeholder="설명">- "기업, 기술, ESG, 기타" 카테고리가 있습니다.</textarea>
+            <div class="menu-item active">
+                <a href="#" onclick="toggleSubmenu(this)">
+                    <span>미디어 관리</span>
+                    <span class="menu-arrow">▼</span>
+                </a>
+                <div class="submenu show">
+                    <a href="media_list_admin.html" class="active">보도자료</a>
                 </div>
             </div>
-            
-            <div class="description-item" data-id="4">
-                <h4>4. 제목</h4>
-                <div class="description-text">
-                    <p>- 클릭 시 상세 페이지로 이동합니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="제목" placeholder="제목">
-                    <textarea placeholder="설명">- 클릭 시 상세 페이지로 이동합니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="5">
-                <h4>5. 날짜</h4>
-                <div class="description-text">
-                    <p>- 년, 월, 일 선택이 가능하며 발행일시로 검색합니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="날짜" placeholder="제목">
-                    <textarea placeholder="설명">- 년, 월, 일 선택이 가능하며 발행일시로 검색합니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="6">
-                <h4>6. 언어</h4>
-                <div class="description-text">
-                    <p>- 검색 필터의 언어 드롭다운 옵션입니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="언어" placeholder="제목">
-                    <textarea placeholder="설명">- 검색 필터의 언어 드롭다운 옵션입니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="7">
-                <h4>7. 카테고리</h4>
-                <div class="description-text">
-                    <p>- 검색 필터의 카테고리 드롭다운 옵션입니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="카테고리" placeholder="제목">
-                    <textarea placeholder="설명">- 검색 필터의 카테고리 드롭다운 옵션입니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="8">
-                <h4>8. 셀렉트 박스</h4>
-                <div class="description-text">
-                    <p>- 검색 필드의 검색 대상 (전체, 제목, 내용)을 선택하는 드롭다운입니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="셀렉트 박스" placeholder="제목">
-                    <textarea placeholder="설명">- 검색 필드의 검색 대상 (전체, 제목, 내용)을 선택하는 드롭다운입니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="9">
-                <h4>9. 인풋 박스</h4>
-                <div class="description-text">
-                    <p>- 검색 필드의 검색어 입력 영역이며, And 검색을 지원하고 검색 결과는 마스킹되어 노출됩니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="인풋 박스" placeholder="제목">
-                    <textarea placeholder="설명">- 검색 필드의 검색어 입력 영역이며, And 검색을 지원하고 검색 결과는 마스킹되어 노출됩니다.</textarea>
-                </div>
-            </div>
-            
-            <div class="description-item" data-id="10">
-                <h4>10. 등록</h4>
-                <div class="description-text">
-                    <p>- 클릭 시 게시글 등록 페이지로 이동합니다.</p>
-                </div>
-                <div class="edit-form">
-                    <input type="text" value="등록" placeholder="제목">
-                    <textarea placeholder="설명">- 클릭 시 게시글 등록 페이지로 이동합니다.</textarea>
-                </div>
-            </div>
-        </div>
+        </nav>
     </div>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-wrapper">
+        <!-- 상단 헤더 -->
+        <div class="top-header">
+            <div class="header-left">
+                <div class="breadcrumb">
+                    <a href="#">미디어 관리</a> > <a href="#">보도자료</a> > <span>목록</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="검색어 입력">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-avatar">김</div>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <h1 class="content-title">보도자료 목록</h1>
+            
+            <!-- 원형 숫자 딱지 툴바 -->
+            <div class="badge-toolbar" id="badgeToolbar">
+                <!-- 디스크립션과 매칭되는 원형 딱지들이 여기에 동적으로 생성됩니다 -->
+            </div>
+            
+            <div class="content-wrapper">
+                <!-- 통합 콘텐츠 영역 -->
+                <div class="unified-content">
+                    <!-- 왼쪽 콘텐츠 영역 -->
+                    <div class="left-content">
+                        <!-- 드래그 가능한 영역 -->
+                        <div class="badge-container" id="badgeContainer">
+                            <!-- 검색/필터 영역 -->
+                            <div class="search-section">
+                                <form class="search-form">
+                                    <div class="form-group">
+                                        <label>날짜</label>
+                                        <div class="date-range">
+                                            <input type="date" class="form-control" id="startDate">
+                                            <span>~</span>
+                                            <input type="date" class="form-control" id="endDate">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>언어</label>
+                                        <select class="form-control" id="language">
+                                            <option value="">전체</option>
+                                            <option value="KR">KR</option>
+                                            <option value="EN">EN</option>
+                                            <option value="CN">CN</option>
+                                            <option value="JP">JP</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>카테고리</label>
+                                        <select class="form-control" id="category">
+                                            <option value="">전체</option>
+                                            <option value="기업">기업</option>
+                                            <option value="기술">기술</option>
+                                            <option value="ESG">ESG</option>
+                                            <option value="기타">기타</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>검색</label>
+                                        <div class="search-input-group">
+                                            <select class="form-control" id="searchType" style="min-width: 80px;">
+                                                <option value="all">전체</option>
+                                                <option value="title">제목</option>
+                                                <option value="content">내용</option>
+                                            </select>
+                                            <input type="text" class="form-control" id="searchKeyword" placeholder="검색어 입력" style="min-width: 200px;">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <button type="button" class="btn btn-primary" onclick="searchPress()">검색</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- 테이블과 페이지네이션을 묶은 구역 -->
+                            <div class="table-pagination-section">
+                                <!-- 테이블 영역 -->
+                                <div class="table-section">
+                                    <div class="table-header">
+                                        <div class="table-title">게시물 목록 (최신 등록순)</div>
+                                    </div>
+                                    
+                                    <div class="table-container">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 60px;">번호</th>
+                                                    <th style="width: 60px;">언어</th>
+                                                    <th style="width: 80px;">카테고리</th>
+                                                    <th style="width: 300px;">제목</th>
+                                                    <th style="width: 80px;">작성자</th>
+                                                    <th style="width: 80px;">조회수</th>
+                                                    <th style="width: 80px;">상위노출</th>
+                                                    <th style="width: 80px;">노출여부</th>
+                                                    <th style="width: 120px;">발행일시</th>
+                                                    <th style="width: 120px;">등록일시</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Firebase에서 동적으로 로드됩니다 -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- 페이지네이션 및 등록 버튼 -->
+                                <div class="pagination-section">
+                                    <div class="pagination" id="pagination">
+                                        <!-- Firebase에서 동적으로 생성됩니다 -->
+                                    </div>
+                                    
+                                    <button class="btn btn-primary register-button" onclick="registerNew()">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 디스크립션 패널 -->
+                    <div class="description-panel">
+                        <div class="description-header">
+                            <div class="description-title">Description</div>
+                            <div>
+                                <button class="add-description-btn" id="addDescriptionBtn" onclick="addNewDescription()" title="새 디스크립션 추가">추가</button>
+                                <button class="edit-button" id="editDescriptionBtn" onclick="toggleEditMode()">수정</button>
+                                <button class="delete-description-btn" id="deleteDescriptionBtn" onclick="deleteSelectedDescription()" style="display: none;">삭제</button>
+                                <button class="save-description-btn" id="saveDescriptionBtn" onclick="saveNewDescription()" style="display: none;">저장</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Firebase에서 동적으로 로드됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -923,24 +1131,80 @@
                     throw new Error('Firebase 연결이 필요합니다.');
                 }
 
-                const { collection, getDocs } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                const { collection, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
                 
-                const querySnapshot = await getDocs(collection(window.firebaseDb, 'descriptions'));
-                const descriptions = [];
+                // list_description 컬렉션에서 최신 문서 가져오기
+                const q = query(
+                    collection(window.firebaseDb, 'list_description'),
+                    where('page', '==', 'media_list_admin'),
+                    limit(1)
+                );
                 
-                querySnapshot.forEach((doc) => {
-                    descriptions.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                });
+                const querySnapshot = await getDocs(q);
                 
-                console.log('Firebase에서 디스크립션을 불러왔습니다:', descriptions);
-                return descriptions;
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    console.log('Firebase에서 디스크립션을 불러왔습니다:', data.descriptions);
+                    return data.descriptions || [];
+                } else {
+                    console.log('저장된 디스크립션이 없습니다.');
+                    return [];
+                }
             } catch (error) {
                 console.error('Firebase 로드 오류:', error);
                 throw error;
             }
+        }
+
+        // Firebase에서 로드한 디스크립션을 화면에 표시하는 함수
+        function displayDescriptionsFromFirebase(descriptions) {
+            const descriptionPanel = document.querySelector('.description-panel');
+            if (!descriptionPanel) return;
+
+            // 기존 디스크립션 항목들 제거 (헤더 제외)
+            const existingItems = descriptionPanel.querySelectorAll('.description-item');
+            existingItems.forEach(item => item.remove());
+
+            // ID 기준 오름차순으로 정렬 (숫자로 변환하여 정확한 정렬)
+            descriptions.sort((a, b) => {
+                const aNumber = parseInt(a.id) || 0;
+                const bNumber = parseInt(b.id) || 0;
+                return aNumber - bNumber;
+            });
+
+            console.log('정렬된 디스크립션 ID 순서:', descriptions.map(d => d.id));
+
+            // Firebase에서 로드한 디스크립션들을 화면에 표시 (정렬된 순서대로)
+            descriptions.forEach(desc => {
+                const descriptionItem = document.createElement('div');
+                descriptionItem.className = 'description-item';
+                descriptionItem.setAttribute('data-id', desc.id);
+                
+                descriptionItem.innerHTML = `
+                    <button class="item-delete-btn" onclick="deleteDescriptionItem(event, '${desc.id}')" title="삭제">×</button>
+                    <h4>${desc.title}</h4>
+                    <div class="description-text">
+                        <p>${desc.content}</p>
+                    </div>
+                    <div class="edit-form">
+                        <input type="number" value="${desc.id}" placeholder="번호" min="1" class="id-input" style="width: 60px; margin-right: 10px;">
+                        <input type="text" value="${desc.title.replace(/^\d+\.\s*/, '')}" placeholder="제목" style="width: calc(100% - 80px);">
+                        <textarea placeholder="설명">${desc.content}</textarea>
+                    </div>
+                `;
+
+                // 클릭 이벤트 추가
+                descriptionItem.addEventListener('click', function(event) {
+                    handleDescriptionClick(event, desc.id);
+                });
+
+                // description-header 뒤에 순차적으로 추가 (정렬된 순서 유지)
+                const header = descriptionPanel.querySelector('.description-header');
+                header.insertAdjacentElement('afterend', descriptionItem);
+            });
+
+            console.log('디스크립션이 화면에 표시되었습니다:', descriptions.length, '개');
         }
 
         // 디스크립션을 Firebase에 저장하는 함수
@@ -950,35 +1214,97 @@
                     throw new Error('Firebase 연결이 필요합니다.');
                 }
 
-                const { collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                const { 
+                    collection, 
+                    addDoc, 
+                    updateDoc, 
+                    doc, 
+                    getDocs, 
+                    query, 
+                    where, 
+                    orderBy, 
+                    limit, 
+                    serverTimestamp 
+                } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
                 
                 // 현재 디스크립션 데이터 수집
                 const descriptionItems = document.querySelectorAll('.description-item');
                 const descriptions = [];
                 
+                console.log('수집할 디스크립션 항목 수:', descriptionItems.length);
+                
                 descriptionItems.forEach(item => {
                     const itemId = item.getAttribute('data-id');
                     const h4 = item.querySelector('h4');
-                    const p = item.querySelector('.description-text p');
+                    
+                    // 편집 모드인지 확인
+                    const editForm = item.querySelector('.edit-form');
+                    const descriptionText = item.querySelector('.description-text');
+                    
+                    let title, content, finalId = itemId;
+                    
+                    if (editForm && editForm.style.display !== 'none') {
+                        // 편집 모드인 경우 - ID 입력 필드와 제목 입력 필드에서 값 가져오기
+                        const idInput = editForm.querySelector('.id-input');
+                        const titleInput = editForm.querySelector('input[type="text"]');
+                        const textarea = editForm.querySelector('textarea');
+                        
+                        // ID가 변경되었는지 확인
+                        if (idInput) {
+                            finalId = idInput.value.trim() || itemId;
+                        }
+                        
+                        title = titleInput ? `${finalId}. ${titleInput.value}` : h4.textContent;
+                        content = textarea ? textarea.value : '';
+                    } else {
+                        // 일반 모드인 경우 - 기존 방식
+                        const p = descriptionText ? descriptionText.querySelector('p') : null;
+                        title = h4.textContent;
+                        content = p ? p.textContent : '';
+                    }
                     
                     descriptions.push({
-                        id: itemId,
-                        title: h4.textContent,
-                        content: p.textContent,
+                        id: finalId,
+                        title: title,
+                        content: content,
                         page: 'media_list_admin'
                     });
+                    
+                    console.log(`디스크립션 ${finalId}:`, { title, content });
                 });
                 
-                // Firebase에 저장
-                const docRef = await addDoc(collection(window.firebaseDb, 'descriptions'), {
-                    page: 'media_list_admin',
-                    descriptions: descriptions,
-                    updatedAt: serverTimestamp(),
-                    updatedBy: 'admin'
-                });
+                console.log('수집된 디스크립션 데이터:', descriptions);
                 
-                console.log('디스크립션이 Firebase에 저장되었습니다. ID:', docRef.id);
-                return docRef.id;
+                // 기존 문서 찾기 (인덱스 문제 방지를 위해 orderBy 제거)
+                const q = query(
+                    collection(window.firebaseDb, 'list_description'),
+                    where('page', '==', 'media_list_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    // 기존 문서 업데이트
+                    const docSnapshot = querySnapshot.docs[0];
+                    await updateDoc(doc(window.firebaseDb, 'list_description', docSnapshot.id), {
+                        descriptions: descriptions,
+                        updatedAt: serverTimestamp(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('디스크립션이 Firebase에서 업데이트되었습니다. 문서 ID:', docSnapshot.id);
+                    return docSnapshot.id;
+                } else {
+                    // 새 문서 생성
+                    const docRef = await addDoc(collection(window.firebaseDb, 'list_description'), {
+                        page: 'media_list_admin',
+                        descriptions: descriptions,
+                        updatedAt: serverTimestamp(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('디스크립션이 Firebase에 새로 저장되었습니다. 문서 ID:', docRef.id);
+                    return docRef.id;
+                }
             } catch (error) {
                 console.error('Firebase 저장 오류:', error);
                 throw error;
@@ -1019,14 +1345,30 @@
         }
 
         // 날짜와 시간을 포맷팅하는 함수
-        function formatDateTime(date, time) {
-            if (!date || !time) return '';
-            const dateObj = new Date(date);
+        function formatDateTime(timestamp) {
+            if (!timestamp) return '';
+            
+            // Firebase timestamp 객체인 경우
+            if (timestamp.seconds) {
+                const dateObj = new Date(timestamp.seconds * 1000);
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                const hour = String(dateObj.getHours()).padStart(2, '0');
+                const minute = String(dateObj.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day} ${hour}:${minute}`;
+            }
+            
+            // 일반 Date 객체나 문자열인 경우
+            const dateObj = new Date(timestamp);
+            if (isNaN(dateObj.getTime())) return '';
+            
             const year = dateObj.getFullYear();
             const month = String(dateObj.getMonth() + 1).padStart(2, '0');
             const day = String(dateObj.getDate()).padStart(2, '0');
-            const hour = String(time).padStart(2, '0');
-            return `${year}-${month}-${day} ${hour}:00`;
+            const hour = String(dateObj.getHours()).padStart(2, '0');
+            const minute = String(dateObj.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hour}:${minute}`;
         }
 
         // 테이블에 게시글 데이터 표시
@@ -1054,7 +1396,7 @@
                     <td><span class="status-${item.topExposure === 'Y' ? 'y' : 'n'}">${item.topExposure}</span></td>
                     <td><span class="status-${item.exposure === 'Y' ? 'y' : 'n'}">${item.exposure}</span></td>
                     <td>${item.publicationDateTime}</td>
-                    <td>${formatDateTime(item.createdAt)}</td>
+                    <td>${formatDateTime(item.updatedAt)}</td>
                 `;
 
                 tbody.appendChild(row);
@@ -1068,74 +1410,83 @@
         }
 
         // Firebase 연결 테스트 함수
-        async function testFirebaseConnection() {
-            try {
-                console.log('Firebase 연결 테스트 시작...');
-                
-                // Firebase 연결 확인
-                if (!checkFirebaseConnection()) {
-                    throw new Error('Firebase 초기화 실패');
-                }
-                
-                // Firestore 연결 테스트
-                const { collection, addDoc, getDocs, deleteDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-                
-                // 테스트 데이터 추가
-                const testData = {
-                    message: 'Firebase 연결 테스트',
-                    timestamp: new Date(),
-                    testId: Math.random().toString(36).substr(2, 9)
-                };
-                
-                console.log('테스트 데이터 추가 중...');
-                const docRef = await addDoc(collection(window.firebaseDb, 'connection-test'), testData);
-                console.log('✅ 테스트 데이터 추가 성공! 문서 ID:', docRef.id);
-                
-                // 테스트 데이터 읽기
-                console.log('테스트 데이터 읽기 중...');
-                const querySnapshot = await getDocs(collection(window.firebaseDb, 'connection-test'));
-                const testResults = [];
-                querySnapshot.forEach((doc) => {
-                    testResults.push({ id: doc.id, ...doc.data() });
-                });
-                console.log('✅ 테스트 데이터 읽기 성공! 총', testResults.length, '개 문서');
-                
-                // 테스트 데이터 정리 (방금 추가한 것만 삭제)
-                await deleteDoc(doc(window.firebaseDb, 'connection-test', docRef.id));
-                console.log('✅ 테스트 데이터 정리 완료');
-                
-                // 연결 성공 알림
-                alert('🎉 Firebase 연결 성공!\n\n- Firestore 데이터베이스 연결 확인\n- 데이터 읽기/쓰기 테스트 완료\n- 자세한 내용은 개발자 도구 콘솔을 확인하세요.');
-                
-                return true;
-                
-            } catch (error) {
-                console.error('❌ Firebase 연결 테스트 실패:', error);
-                alert('❌ Firebase 연결 실패!\n\n오류: ' + error.message + '\n\n자세한 내용은 개발자 도구 콘솔을 확인하세요.');
-                return false;
-            }
+
+        // HTML 디스크립션 항목들을 ID 기준으로 정렬하는 함수
+        function sortHtmlDescriptions() {
+            const descriptionPanel = document.querySelector('.description-panel');
+            if (!descriptionPanel) return;
+
+            const descriptionItems = Array.from(descriptionPanel.querySelectorAll('.description-item'));
+            
+            // ID 기준으로 정렬 (숫자로 변환하여 정확한 정렬)
+            descriptionItems.sort((a, b) => {
+                const aId = parseInt(a.getAttribute('data-id')) || 0;
+                const bId = parseInt(b.getAttribute('data-id')) || 0;
+                return aId - bId;
+            });
+
+            console.log('정렬된 HTML 디스크립션 ID 순서:', descriptionItems.map(item => item.getAttribute('data-id')));
+
+            // 정렬된 순서로 DOM에 다시 추가 (위에서부터 순서대로)
+            const header = descriptionPanel.querySelector('.description-header');
+            // 기존 항목들을 모두 제거
+            descriptionItems.forEach(item => {
+                item.remove();
+            });
+            // 정렬된 순서로 다시 추가
+            descriptionItems.forEach(item => {
+                header.insertAdjacentElement('afterend', item);
+            });
         }
 
         // 페이지 로드 시 초기화
         window.addEventListener('load', async function() {
             setDefaultDateRange();
             checkFirebaseConnection();
+            
+            // HTML 디스크립션 항목들 정렬
+            sortHtmlDescriptions();
+            
+            // 드롭 존 설정
+            setupDropZone();
+            
             console.log('미디어 관리 보도자료 목록 페이지가 로드되었습니다.');
             
-            // Firebase 연결 테스트 자동 실행
+            // Firebase 연결 확인 후 데이터 불러오기
             setTimeout(async () => {
-                const isConnected = await testFirebaseConnection();
-                if (isConnected) {
-                    // Firebase 연결 성공 시 게시글 목록 불러오기
+                if (checkFirebaseConnection()) {
                     try {
+                        // list_description 컬렉션 초기화 (없으면 생성)
+                        await initializeListDescriptionCollection();
+                        
+                        // 게시글 목록 불러오기
                         const pressReleases = await loadPressReleasesFromFirebase();
                         displayPressReleases(pressReleases);
                         console.log('게시글 목록이 성공적으로 로드되었습니다.');
+                        
+                        // 디스크립션 불러오기
+                        const descriptions = await loadDescriptionsFromFirebase();
+                        displayDescriptionsFromFirebase(descriptions);
+                        console.log('디스크립션이 성공적으로 로드되었습니다.');
+                        
+                        // 딱지 툴바 생성
+                        createBadgeToolbar(descriptions);
+                        console.log('딱지 툴바가 생성되었습니다.');
+                        
+                        // 저장된 딱지 위치 불러오기 및 복원
+                        const savedPositions = await loadBadgePositionsFromFirebase();
+                        if (Object.keys(savedPositions).length > 0) {
+                            restoreBadgePositions(savedPositions);
+                            console.log('저장된 딱지 위치가 복원되었습니다.');
+                        }
+                        
                     } catch (error) {
-                        console.error('게시글 목록 로드 실패:', error);
+                        console.error('데이터 로드 실패:', error);
                     }
+                } else {
+                    console.error('Firebase 연결이 실패했습니다.');
                 }
-            }, 2000); // 2초 후 자동 테스트
+            }, 1000);
         });
 
         // 검색어 입력 시 엔터키 처리
@@ -1148,7 +1499,297 @@
         // 디스크립션 편집 모드 토글
         let isEditMode = false;
 
-        function toggleEditMode() {
+        // 디스크립션 선택 및 삭제 관련 변수
+        let selectedDescriptionId = null;
+
+        // 디스크립션 항목 클릭 이벤트 처리
+        function handleDescriptionClick(event, itemId) {
+            // 편집 모드가 아닐 때만 선택 기능 활성화
+            if (!isEditMode) {
+                // 이미 선택된 항목을 다시 클릭한 경우 선택 해제
+                if (selectedDescriptionId === itemId) {
+                    event.currentTarget.classList.remove('selected');
+                    selectedDescriptionId = null;
+                } else {
+                    // 기존 선택 해제
+                    document.querySelectorAll('.description-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    
+                    // 현재 항목 선택
+                    event.currentTarget.classList.add('selected');
+                    selectedDescriptionId = itemId;
+                }
+                
+                // 삭제 버튼 표시/숨김
+                updateDeleteButtonVisibility();
+            }
+        }
+
+        // 삭제 버튼 표시/숨김 업데이트
+        function updateDeleteButtonVisibility() {
+            const deleteBtn = document.getElementById('deleteDescriptionBtn');
+            if (deleteBtn) {
+                deleteBtn.style.display = selectedDescriptionId ? 'inline-block' : 'none';
+            }
+        }
+
+        // 개별 디스크립션 항목 삭제 함수
+        async function deleteDescriptionItem(event, itemId) {
+            // 이벤트 전파 중지 (부모 요소의 클릭 이벤트 방지)
+            event.stopPropagation();
+            
+            if (confirm('이 디스크립션을 삭제하시겠습니까?')) {
+                try {
+                    // DOM에서 제거
+                    const selectedItem = document.querySelector(`.description-item[data-id="${itemId}"]`);
+                    if (selectedItem) {
+                        selectedItem.remove();
+                    }
+
+                    // 선택 상태 초기화 (삭제된 항목이 선택된 상태였다면)
+                    if (selectedDescriptionId === itemId) {
+                        selectedDescriptionId = null;
+                        updateDeleteButtonVisibility();
+                    }
+
+                    // Firebase에서 업데이트된 목록 저장 (삭제된 항목 제외)
+                    await saveDescriptionsToFirebase();
+
+                    // 삭제 후 정렬 실행
+                    sortHtmlDescriptions();
+
+                    // 해당 딱지를 툴바와 드래그 영역에서 자동 삭제
+                    removeBadgeFromToolbar(itemId);
+                    removeBadgeFromContainer(itemId);
+
+                    alert('디스크립션이 성공적으로 삭제되었습니다.');
+                } catch (error) {
+                    console.error('디스크립션 삭제 오류:', error);
+                    alert('디스크립션 삭제 중 오류가 발생했습니다: ' + error.message);
+                }
+            }
+        }
+
+        // 디스크립션 삭제 함수
+        async function deleteSelectedDescription() {
+            if (!selectedDescriptionId) {
+                alert('삭제할 디스크립션을 선택해주세요.');
+                return;
+            }
+
+            if (confirm('선택한 디스크립션을 삭제하시겠습니까?')) {
+                try {
+                    // DOM에서 제거
+                    const selectedItem = document.querySelector(`.description-item[data-id="${selectedDescriptionId}"]`);
+                    if (selectedItem) {
+                        selectedItem.remove();
+                    }
+
+                    // Firebase에서 업데이트된 목록 저장 (삭제된 항목 제외)
+                    await saveDescriptionsToFirebase();
+
+                    // 삭제 후 정렬 실행
+                    sortHtmlDescriptions();
+
+                    // 해당 딱지를 툴바와 드래그 영역에서 자동 삭제
+                    removeBadgeFromToolbar(selectedDescriptionId);
+                    removeBadgeFromContainer(selectedDescriptionId);
+
+                    // 선택 상태 초기화
+                    selectedDescriptionId = null;
+                    updateDeleteButtonVisibility();
+
+                    alert('디스크립션이 성공적으로 삭제되었습니다.');
+                } catch (error) {
+                    console.error('디스크립션 삭제 오류:', error);
+                    alert('디스크립션 삭제 중 오류가 발생했습니다: ' + error.message);
+                }
+            }
+        }
+
+        // 새로운 디스크립션 추가 함수
+        function addNewDescription() {
+            const descriptionPanel = document.querySelector('.description-panel');
+            const existingItems = document.querySelectorAll('.description-item');
+            // 기존 항목들의 최대 ID를 찾아서 새 ID 생성
+            let maxId = 0;
+            existingItems.forEach(item => {
+                const id = parseInt(item.getAttribute('data-id')) || 0;
+                if (id > maxId) maxId = id;
+            });
+            const newId = maxId + 1;
+            
+            const newDescriptionItem = document.createElement('div');
+            newDescriptionItem.className = 'description-item new-item';
+            newDescriptionItem.setAttribute('data-id', newId);
+            
+            newDescriptionItem.innerHTML = `
+                <button class="item-delete-btn" onclick="deleteDescriptionItem(event, '${newId}')" title="삭제">×</button>
+                <h4>${newId}. 새 항목</h4>
+                <div class="description-text">
+                    <p>- 새로 추가된 디스크립션 항목입니다.</p>
+                </div>
+                <div class="edit-form">
+                    <input type="number" value="${newId}" placeholder="번호" min="1" class="id-input" style="width: 60px; margin-right: 10px;">
+                    <input type="text" value="새 항목" placeholder="제목" style="width: calc(100% - 80px);">
+                    <textarea placeholder="설명">- 새로 추가된 디스크립션 항목입니다.</textarea>
+                </div>
+            `;
+            
+            // 클릭 이벤트 추가
+            newDescriptionItem.addEventListener('click', function(event) {
+                handleDescriptionClick(event, newId);
+            });
+            
+            // description-header 뒤에 추가
+            const header = descriptionPanel.querySelector('.description-header');
+            header.insertAdjacentElement('afterend', newDescriptionItem);
+            
+            // 새로 추가된 항목을 편집 모드로 설정
+            newDescriptionItem.classList.add('edit-mode');
+            const editForm = newDescriptionItem.querySelector('.edit-form');
+            const descriptionText = newDescriptionItem.querySelector('.description-text');
+            if (editForm && descriptionText) {
+                editForm.style.display = 'block';
+                descriptionText.style.display = 'none';
+            }
+            
+            // 편집 모드 활성화
+            isEditMode = true;
+            
+            // 버튼 상태 변경: 수정 버튼 숨기고 저장 버튼 표시
+            const editBtn = document.getElementById('editDescriptionBtn');
+            const saveBtn = document.getElementById('saveDescriptionBtn');
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'inline-block';
+            
+            // 새 항목 추가 후 정렬 실행
+            sortHtmlDescriptions();
+            
+            // 새로운 딱지를 툴바에 자동 추가
+            addBadgeToToolbar(newId);
+        }
+
+        // ID 중복 체크 함수
+        function checkDuplicateId(newId, excludeItemId = null) {
+            const existingItems = document.querySelectorAll('.description-item');
+            for (let item of existingItems) {
+                const itemId = item.getAttribute('data-id');
+                if (itemId === newId && itemId !== excludeItemId) {
+                    return true; // 중복 발견
+                }
+            }
+            return false; // 중복 없음
+        }
+
+        // 새 디스크립션 저장 함수
+        async function saveNewDescription() {
+            try {
+                // 새로 추가된 항목들을 찾아서 저장
+                const newItems = document.querySelectorAll('.description-item.new-item');
+                
+                if (newItems.length === 0) {
+                    alert('저장할 새로운 디스크립션이 없습니다.');
+                    return;
+                }
+
+                // ID 중복 체크
+                for (let item of newItems) {
+                    const editForm = item.querySelector('.edit-form');
+                    const idInput = editForm.querySelector('.id-input');
+                    const newId = idInput.value.trim();
+                    
+                    if (!newId || newId === '') {
+                        alert('번호를 입력해주세요.');
+                        return;
+                    }
+                    
+                    if (checkDuplicateId(newId)) {
+                        alert('이미 해당되는 번호가 있습니다.');
+                        return;
+                    }
+                }
+                
+                // ID 업데이트 및 딱지 동기화
+                for (let item of newItems) {
+                    const editForm = item.querySelector('.edit-form');
+                    const idInput = editForm.querySelector('.id-input');
+                    const oldId = item.getAttribute('data-id');
+                    const newId = idInput.value.trim();
+                    
+                    // ID가 변경된 경우
+                    if (oldId !== newId) {
+                        // 기존 딱지 제거
+                        removeBadgeFromToolbar(oldId);
+                        removeBadgeFromContainer(oldId);
+                        
+                        // 새로운 ID로 업데이트
+                        item.setAttribute('data-id', newId);
+                        
+                        // 새로운 딱지 추가
+                        addBadgeToToolbar(newId);
+                    }
+                }
+                
+                // Firebase에 저장
+                await saveDescriptionsToFirebase();
+                
+                // 새 항목들을 일반 디스크립션으로 변환
+                newItems.forEach(item => {
+                    // new-item 클래스 제거
+                    item.classList.remove('new-item');
+                    
+                    // 편집 모드 해제
+                    item.classList.remove('edit-mode');
+                    
+                    // 편집 폼 숨기고 일반 텍스트 표시
+                    const editForm = item.querySelector('.edit-form');
+                    const descriptionText = item.querySelector('.description-text');
+                    if (editForm && descriptionText) {
+                        editForm.style.display = 'none';
+                        descriptionText.style.display = 'block';
+                        
+                        // 입력된 값으로 텍스트 업데이트
+                        const idInput = editForm.querySelector('.id-input');
+                        const titleInput = editForm.querySelector('input[type="text"]');
+                        const textarea = editForm.querySelector('textarea');
+                        const h4 = item.querySelector('h4');
+                        const p = descriptionText.querySelector('p');
+                        
+                        if (idInput && titleInput && h4) {
+                            // 번호를 포함한 제목으로 업데이트
+                            const itemId = item.getAttribute('data-id');
+                            h4.textContent = `${itemId}. ${titleInput.value}`;
+                        }
+                        if (textarea && p) {
+                            p.textContent = textarea.value;
+                        }
+                    }
+                });
+                
+                // 편집 모드 해제
+                isEditMode = false;
+                
+                // 버튼 상태 복원: 저장 버튼 숨기고 수정 버튼 표시
+                const editBtn = document.getElementById('editDescriptionBtn');
+                const saveBtn = document.getElementById('saveDescriptionBtn');
+                editBtn.style.display = 'inline-block';
+                saveBtn.style.display = 'none';
+                editBtn.textContent = '수정';
+                
+                // 저장 후 정렬 실행
+                sortHtmlDescriptions();
+                
+                alert('새로운 디스크립션이 성공적으로 저장되었습니다.');
+                
+            } catch (error) {
+                console.error('디스크립션 저장 오류:', error);
+                alert('디스크립션 저장 중 오류가 발생했습니다: ' + error.message);
+            }
+        }
+
+        async function toggleEditMode() {
             const editBtn = document.getElementById('editDescriptionBtn');
             const descriptionItems = document.querySelectorAll('.description-item');
             
@@ -1160,38 +1801,117 @@
                 editBtn.classList.add('complete');
                 
                 descriptionItems.forEach(item => {
-                    item.classList.add('edit-mode');
-                    const textDiv = item.querySelector('.description-text');
-                    const formDiv = item.querySelector('.edit-form');
-                    
-                    textDiv.classList.add('hidden');
-                    formDiv.classList.add('active');
+                    // new-item이 아닌 경우에만 편집 모드 적용
+                    if (!item.classList.contains('new-item')) {
+                        item.classList.add('edit-mode');
+                        const textDiv = item.querySelector('.description-text');
+                        const formDiv = item.querySelector('.edit-form');
+                        
+                        // 기존 편집 폼이 없는 경우 새로 생성
+                        if (!formDiv) {
+                            const itemId = item.getAttribute('data-id');
+                            const h4 = item.querySelector('h4');
+                            const p = textDiv.querySelector('p');
+                            
+                            const newFormDiv = document.createElement('div');
+                            newFormDiv.className = 'edit-form';
+                            newFormDiv.innerHTML = `
+                                <input type="number" value="${itemId}" placeholder="번호" min="1" class="id-input" style="width: 60px; margin-right: 10px;">
+                                <input type="text" value="${h4.textContent.replace(/^\d+\.\s*/, '')}" placeholder="제목" style="width: calc(100% - 80px);">
+                                <textarea placeholder="설명">${p.textContent}</textarea>
+                            `;
+                            
+                            item.appendChild(newFormDiv);
+                        }
+                        
+                        const updatedFormDiv = item.querySelector('.edit-form');
+                        textDiv.style.display = 'none';
+                        updatedFormDiv.style.display = 'block';
+                    }
                 });
             } else {
                 // 편집 모드 종료 및 저장
                 editBtn.textContent = '수정';
                 editBtn.classList.remove('complete');
                 
+                // ID 중복 체크
+                for (let item of descriptionItems) {
+                    if (!item.classList.contains('new-item')) {
+                        const formDiv = item.querySelector('.edit-form');
+                        if (formDiv) {
+                            const idInput = formDiv.querySelector('.id-input');
+                            const newId = idInput.value.trim();
+                            const oldId = item.getAttribute('data-id');
+                            
+                            if (!newId || newId === '') {
+                                alert('번호를 입력해주세요.');
+                                return;
+                            }
+                            
+                            if (newId !== oldId && checkDuplicateId(newId)) {
+                                alert('이미 해당되는 번호가 있습니다.');
+                                return;
+                            }
+                        }
+                    }
+                }
+                
+                // ID 업데이트 및 딱지 동기화
+                for (let item of descriptionItems) {
+                    if (!item.classList.contains('new-item')) {
+                        const formDiv = item.querySelector('.edit-form');
+                        if (formDiv) {
+                            const idInput = formDiv.querySelector('.id-input');
+                            const titleInput = formDiv.querySelector('input[type="text"]');
+                            const textarea = formDiv.querySelector('textarea');
+                            const oldId = item.getAttribute('data-id');
+                            const newId = idInput.value.trim();
+                            
+                            // ID가 변경된 경우
+                            if (oldId !== newId) {
+                                // 기존 딱지 제거
+                                removeBadgeFromToolbar(oldId);
+                                removeBadgeFromContainer(oldId);
+                                
+                                // 새로운 ID로 업데이트
+                                item.setAttribute('data-id', newId);
+                                
+                                // 새로운 딱지 추가
+                                addBadgeToToolbar(newId);
+                            }
+                        }
+                    }
+                }
+                
                 descriptionItems.forEach(item => {
-                    item.classList.remove('edit-mode');
-                    const textDiv = item.querySelector('.description-text');
-                    const formDiv = item.querySelector('.edit-form');
-                    const input = formDiv.querySelector('input');
-                    const textarea = formDiv.querySelector('textarea');
-                    const h4 = item.querySelector('h4');
-                    const p = textDiv.querySelector('p');
-                    
-                    // 입력된 값으로 업데이트
-                    const itemId = item.getAttribute('data-id');
-                    h4.textContent = `${itemId}. ${input.value}`;
-                    p.textContent = textarea.value;
-                    
-                    textDiv.classList.remove('hidden');
-                    formDiv.classList.remove('active');
+                    if (!item.classList.contains('new-item')) {
+                        item.classList.remove('edit-mode');
+                        const textDiv = item.querySelector('.description-text');
+                        const formDiv = item.querySelector('.edit-form');
+                        
+                        if (formDiv) {
+                            const idInput = formDiv.querySelector('.id-input');
+                            const titleInput = formDiv.querySelector('input[type="text"]');
+                            const textarea = formDiv.querySelector('textarea');
+                            const h4 = item.querySelector('h4');
+                            const p = textDiv.querySelector('p');
+                            
+                            // 입력된 값으로 업데이트
+                            const itemId = item.getAttribute('data-id');
+                            h4.textContent = `${itemId}. ${titleInput.value}`;
+                            p.textContent = textarea.value;
+                            
+                            textDiv.style.display = 'block';
+                            formDiv.style.display = 'none';
+                        }
+                    }
                 });
                 
                 // Firebase에 디스크립션 저장
                 await saveDescriptionsToFirebase();
+                
+                // 저장 후 정렬 실행
+                sortHtmlDescriptions();
                 
                 // 저장 완료 알림
                 alert('디스크립션이 성공적으로 수정되었습니다.');
@@ -1214,11 +1934,435 @@
                     const textDiv = item.querySelector('.description-text');
                     const formDiv = item.querySelector('.edit-form');
                     
-                    textDiv.classList.remove('hidden');
-                    formDiv.classList.remove('active');
+                    textDiv.style.display = 'block';
+                    formDiv.style.display = 'none';
                 });
             }
         });
+
+        // 사이드바 메뉴 토글 함수
+        function toggleSubmenu(element) {
+            const menuItem = element.parentElement;
+            const submenu = menuItem.querySelector('.submenu');
+            
+            // 다른 메뉴들의 서브메뉴 닫기
+            document.querySelectorAll('.submenu').forEach(sub => {
+                if (sub !== submenu) {
+                    sub.classList.remove('show');
+                }
+            });
+            
+            // 다른 메뉴들의 active 클래스 제거
+            document.querySelectorAll('.menu-item').forEach(item => {
+                if (item !== menuItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // 현재 메뉴 토글
+            if (submenu.classList.contains('show')) {
+                submenu.classList.remove('show');
+                menuItem.classList.remove('active');
+            } else {
+                submenu.classList.add('show');
+                menuItem.classList.add('active');
+            }
+        }
+
+        // 원형 숫자 딱지 관련 변수
+        let draggedBadge = null;
+        let badgePositions = {};
+
+        // 디스크립션과 매칭되는 원형 딱지 생성
+        function createBadgeToolbar(descriptions) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            badgeToolbar.innerHTML = '';
+
+            descriptions.forEach(desc => {
+                const badge = document.createElement('div');
+                badge.className = 'number-badge';
+                badge.textContent = desc.id;
+                badge.setAttribute('data-id', desc.id);
+                badge.setAttribute('draggable', 'true');
+                
+                // 드래그 이벤트 리스너 추가
+                badge.addEventListener('dragstart', handleDragStart);
+                badge.addEventListener('dragend', handleDragEnd);
+                
+                badgeToolbar.appendChild(badge);
+            });
+        }
+
+        // 특정 ID의 딱지를 툴바에 추가
+        function addBadgeToToolbar(badgeId) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            // 이미 존재하는지 확인
+            const existingBadge = badgeToolbar.querySelector(`[data-id="${badgeId}"]`);
+            if (existingBadge) return;
+
+            const badge = document.createElement('div');
+            badge.className = 'number-badge';
+            badge.textContent = badgeId;
+            badge.setAttribute('data-id', badgeId);
+            badge.setAttribute('draggable', 'true');
+            
+            // 드래그 이벤트 리스너 추가
+            badge.addEventListener('dragstart', handleDragStart);
+            badge.addEventListener('dragend', handleDragEnd);
+            
+            badgeToolbar.appendChild(badge);
+            console.log(`딱지 ${badgeId}가 툴바에 추가되었습니다.`);
+        }
+
+        // 특정 ID의 딱지를 툴바에서 제거
+        function removeBadgeFromToolbar(badgeId) {
+            const badgeToolbar = document.getElementById('badgeToolbar');
+            if (!badgeToolbar) return;
+
+            const badge = badgeToolbar.querySelector(`[data-id="${badgeId}"]`);
+            if (badge) {
+                badge.remove();
+                console.log(`딱지 ${badgeId}가 툴바에서 제거되었습니다.`);
+            }
+        }
+
+        // 특정 ID의 딱지를 드래그 영역에서 제거
+        function removeBadgeFromContainer(badgeId) {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            const badge = badgeContainer.querySelector(`[data-id="${badgeId}"]`);
+            if (badge) {
+                badge.remove();
+                console.log(`딱지 ${badgeId}가 드래그 영역에서 제거되었습니다.`);
+            }
+        }
+
+        // 드래그 시작
+        function handleDragStart(e) {
+            draggedBadge = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.outerHTML);
+        }
+
+        // 드래그 종료
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            draggedBadge = null;
+        }
+
+        // 드래그 가능한 영역에 드롭 이벤트 추가
+        function setupDropZone() {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            badgeContainer.addEventListener('dragover', handleDragOver);
+            badgeContainer.addEventListener('drop', handleDrop);
+            badgeContainer.addEventListener('dragenter', handleDragEnter);
+            badgeContainer.addEventListener('dragleave', handleDragLeave);
+        }
+
+        // 드래그 오버
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        // 드래그 엔터
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('drag-over');
+        }
+
+        // 드래그 리브
+        function handleDragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        // 드롭 처리
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('drag-over');
+            
+            if (!draggedBadge) return;
+
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // 새로운 딱지 생성
+            const newBadge = document.createElement('div');
+            newBadge.className = 'number-badge';
+            newBadge.textContent = draggedBadge.textContent;
+            newBadge.setAttribute('data-id', draggedBadge.getAttribute('data-id'));
+            newBadge.style.left = x + 'px';
+            newBadge.style.top = y + 'px';
+            newBadge.style.position = 'absolute';
+
+            // 클릭 이벤트로 위치 조정 가능하도록 설정
+            newBadge.addEventListener('click', function() {
+                this.style.cursor = 'move';
+            });
+
+            // 마우스 다운으로 드래그 가능하도록 설정
+            newBadge.addEventListener('mousedown', handleMouseDown);
+
+            // 컨테이너에 추가
+            e.target.appendChild(newBadge);
+
+            // 위치 저장
+            const badgeId = draggedBadge.getAttribute('data-id');
+            badgePositions[badgeId] = { x: x, y: y };
+            
+            // Firebase에 위치 저장
+            saveBadgePositionToFirebase(badgeId, x, y);
+        }
+
+        // 마우스 다운으로 드래그 시작
+        function handleMouseDown(e) {
+            const badge = e.target;
+            const startX = e.clientX - badge.offsetLeft;
+            const startY = e.clientY - badge.offsetTop;
+
+            function handleMouseMove(e) {
+                const x = e.clientX - startX;
+                const y = e.clientY - startY;
+                
+                badge.style.left = x + 'px';
+                badge.style.top = y + 'px';
+            }
+
+            function handleMouseUp(e) {
+                const x = e.clientX - startX;
+                const y = e.clientY - startY;
+                
+                // 위치 저장
+                const badgeId = badge.getAttribute('data-id');
+                badgePositions[badgeId] = { x: x, y: y };
+                
+                // Firebase에 위치 저장
+                saveBadgePositionToFirebase(badgeId, x, y);
+                
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+            }
+
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        }
+
+        // Firebase에 딱지 위치 저장
+        async function saveBadgePositionToFirebase(badgeId, x, y) {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, updateDoc, doc, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // badge_positions 컬렉션에서 해당 페이지의 위치 정보 찾기
+                const q = query(
+                    collection(window.firebaseDb, 'badge_positions'),
+                    where('page', '==', 'media_list_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    // 기존 문서 업데이트
+                    const docSnapshot = querySnapshot.docs[0];
+                    const currentData = docSnapshot.data();
+                    const positions = currentData.positions || {};
+                    positions[badgeId] = { x: x, y: y };
+                    
+                    await updateDoc(doc(window.firebaseDb, 'badge_positions', docSnapshot.id), {
+                        positions: positions,
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('딱지 위치가 Firebase에서 업데이트되었습니다.');
+                } else {
+                    // 새 문서 생성
+                    const positions = {};
+                    positions[badgeId] = { x: x, y: y };
+                    
+                    await addDoc(collection(window.firebaseDb, 'badge_positions'), {
+                        page: 'media_list_admin',
+                        positions: positions,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    console.log('딱지 위치가 Firebase에 새로 저장되었습니다.');
+                }
+            } catch (error) {
+                console.error('Firebase 위치 저장 오류:', error);
+            }
+        }
+
+        // Firebase에서 딱지 위치 불러오기
+        async function loadBadgePositionsFromFirebase() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                const q = query(
+                    collection(window.firebaseDb, 'badge_positions'),
+                    where('page', '==', 'media_list_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    console.log('Firebase에서 딱지 위치를 불러왔습니다:', data.positions);
+                    return data.positions || {};
+                } else {
+                    console.log('저장된 딱지 위치가 없습니다.');
+                    return {};
+                }
+            } catch (error) {
+                console.error('Firebase 위치 로드 오류:', error);
+                return {};
+            }
+        }
+
+        // 저장된 위치로 딱지 복원
+        function restoreBadgePositions(positions) {
+            const badgeContainer = document.getElementById('badgeContainer');
+            if (!badgeContainer) return;
+
+            Object.keys(positions).forEach(badgeId => {
+                const position = positions[badgeId];
+                const badge = document.createElement('div');
+                badge.className = 'number-badge';
+                badge.textContent = badgeId;
+                badge.setAttribute('data-id', badgeId);
+                badge.style.left = position.x + 'px';
+                badge.style.top = position.y + 'px';
+                badge.style.position = 'absolute';
+
+                // 마우스 다운으로 드래그 가능하도록 설정
+                badge.addEventListener('mousedown', handleMouseDown);
+
+                badgeContainer.appendChild(badge);
+            });
+        }
+
+        // 모든 디스크립션 데이터 삭제 함수 (수동 실행용)
+        async function deleteAllDescriptions() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, getDocs, deleteDoc, doc, query, where } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // list_description 컬렉션에서 해당 페이지의 모든 문서 삭제
+                const q = query(
+                    collection(window.firebaseDb, 'list_description'),
+                    where('page', '==', 'media_list_admin')
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                for (const docSnapshot of querySnapshot.docs) {
+                    await deleteDoc(doc(window.firebaseDb, 'list_description', docSnapshot.id));
+                    console.log('디스크립션 문서 삭제됨:', docSnapshot.id);
+                }
+                
+                // badge_positions 컬렉션에서도 해당 페이지의 위치 정보 삭제
+                const badgeQ = query(
+                    collection(window.firebaseDb, 'badge_positions'),
+                    where('page', '==', 'media_list_admin')
+                );
+                
+                const badgeQuerySnapshot = await getDocs(badgeQ);
+                
+                for (const docSnapshot of badgeQuerySnapshot.docs) {
+                    await deleteDoc(doc(window.firebaseDb, 'badge_positions', docSnapshot.id));
+                    console.log('딱지 위치 문서 삭제됨:', docSnapshot.id);
+                }
+                
+                console.log('모든 디스크립션 데이터가 삭제되었습니다.');
+                return true;
+            } catch (error) {
+                console.error('디스크립션 삭제 오류:', error);
+                throw error;
+            }
+        }
+
+        // Firebase에 list_description 컬렉션 생성 및 초기 데이터 저장
+        async function initializeListDescriptionCollection() {
+            try {
+                if (!checkFirebaseConnection()) {
+                    throw new Error('Firebase 연결이 필요합니다.');
+                }
+
+                const { collection, addDoc, getDocs, query, where, limit } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                
+                // 기존 데이터가 있는지 확인
+                const q = query(
+                    collection(window.firebaseDb, 'list_description'),
+                    where('page', '==', 'media_list_admin'),
+                    limit(1)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    // 초기 데이터 생성
+                    const initialDescriptions = [
+                        {
+                            id: "1",
+                            title: "1. 검색 기능",
+                            content: "날짜, 언어, 카테고리별로 게시글을 검색할 수 있습니다.",
+                            page: "media_list_admin"
+                        },
+                        {
+                            id: "2", 
+                            title: "2. 게시글 목록",
+                            content: "등록된 보도자료 목록을 최신 등록순으로 확인할 수 있습니다.",
+                            page: "media_list_admin"
+                        },
+                        {
+                            id: "3",
+                            title: "3. 디스크립션 관리",
+                            content: "오른쪽 패널에서 설명 항목을 추가, 수정, 삭제할 수 있습니다.",
+                            page: "media_list_admin"
+                        }
+                    ];
+                    
+                    await addDoc(collection(window.firebaseDb, 'list_description'), {
+                        page: 'media_list_admin',
+                        descriptions: initialDescriptions,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        updatedBy: 'admin'
+                    });
+                    
+                    console.log('list_description 컬렉션이 생성되고 초기 데이터가 저장되었습니다.');
+                    return initialDescriptions;
+                } else {
+                    console.log('list_description 컬렉션이 이미 존재합니다.');
+                    return null;
+                }
+            } catch (error) {
+                console.error('list_description 컬렉션 초기화 오류:', error);
+                throw error;
+            }
+        }
     </script>
 </body>
 </html>
