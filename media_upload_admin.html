@@ -529,6 +529,7 @@
             height: fit-content;
             position: sticky;
             top: 140px;
+            flex-shrink: 0;
         }
 
         .description-header {
@@ -548,10 +549,10 @@
             background: #28a745;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             margin-right: 10px;
             transition: background-color 0.3s;
         }
@@ -564,10 +565,10 @@
             background: #28a745;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             transition: background-color 0.3s;
         }
 
@@ -576,13 +577,13 @@
         }
 
         .edit-button {
-            padding: 6px 12px;
+            padding: 4px 8px;
             border: 1px solid #007bff;
             background: white;
             color: #007bff;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
             transition: all 0.2s;
         }
@@ -600,6 +601,22 @@
 
         .edit-button.complete:hover {
             background-color: #218838;
+        }
+
+        .delete-description-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-description-btn:hover {
+            background: #c82333;
         }
 
         .description-item {
@@ -621,6 +638,16 @@
             font-size: 12px;
             color: #666;
             line-height: 1.4;
+        }
+
+        /* 편집 모드 스타일 */
+        .description-item.edit-mode {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .description-item.edit-mode h4 {
+            color: #856404;
         }
 
         .description-item.edit-mode .description-text {
@@ -655,43 +682,19 @@
             resize: vertical;
         }
 
-        .item-delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-        }
-
-        .item-delete-btn:hover {
-            background: #c82333;
-        }
-
         .description-item {
             position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .description-item:hover .item-delete-btn {
-            display: flex;
+        .description-item:hover {
+            background-color: #f8f9fa;
         }
 
         .description-item.selected {
-            border-left-color: #dc3545;
-            background: #fff5f5;
-        }
-
-        .description-item.selected .item-delete-btn {
-            display: flex;
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
         }
 
         /* 반응형 */
@@ -827,14 +830,6 @@
             flex-shrink: 0;
         }
 
-        .description-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e9ecef;
-        }
 
         .description-title {
             font-size: 16px;
@@ -906,26 +901,6 @@
             background: #c82333;
         }
 
-        .description-item {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .description-item:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        .description-item.selected {
-            background-color: #e3f2fd;
-            border: 2px solid #2196f3;
-        }
 
         .item-delete-btn {
             position: absolute;
@@ -940,7 +915,6 @@
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s;
-            z-index: 10;
         }
 
         .description-item:hover .item-delete-btn {
