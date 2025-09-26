@@ -1981,7 +1981,7 @@
 
         // 목록으로 이동
         function goToList() {
-            window.location.href = './media_list_admin.html';
+            window.location.href = 'media_list_admin.html';
         }
 
         // 디스크립션 클릭 핸들러
@@ -2879,7 +2879,12 @@
                     const docSnapshot = querySnapshot.docs[0];
                     const currentData = docSnapshot.data();
                     const positions = currentData.positions || {};
-                    positions[badgeId] = { x: x, y: y };
+                    // 상대 좌표로 변환 (부모 컨테이너 기준)
+                    const container = document.getElementById('badgeContainer');
+                    const containerRect = container.getBoundingClientRect();
+                    const relativeX = ((x - containerRect.left) / containerRect.width) * 100;
+                    const relativeY = ((y - containerRect.top) / containerRect.height) * 100;
+                    positions[badgeId] = { x: relativeX, y: relativeY };
                     
                     await updateDoc(doc(window.firebaseDb, 'badge_positions', docSnapshot.id), {
                         positions: positions,
@@ -2890,7 +2895,12 @@
                 } else {
                     // 새 문서 생성
                     const positions = {};
-                    positions[badgeId] = { x: x, y: y };
+                    // 상대 좌표로 변환 (부모 컨테이너 기준)
+                    const container = document.getElementById('badgeContainer');
+                    const containerRect = container.getBoundingClientRect();
+                    const relativeX = ((x - containerRect.left) / containerRect.width) * 100;
+                    const relativeY = ((y - containerRect.top) / containerRect.height) * 100;
+                    positions[badgeId] = { x: relativeX, y: relativeY };
                     
                     await addDoc(collection(window.firebaseDb, 'badge_positions'), {
                         page: 'media_detail_admin',
@@ -2949,8 +2959,13 @@
                 badge.className = 'number-badge';
                 badge.textContent = badgeId;
                 badge.setAttribute('data-id', badgeId);
-                badge.style.left = position.x + 'px';
-                badge.style.top = position.y + 'px';
+                // 상대 좌표를 절대 좌표로 변환
+                const container = document.getElementById('badgeContainer');
+                const containerRect = container.getBoundingClientRect();
+                const absoluteX = (position.x / 100) * containerRect.width + containerRect.left;
+                const absoluteY = (position.y / 100) * containerRect.height + containerRect.top;
+                badge.style.left = absoluteX + 'px';
+                badge.style.top = absoluteY + 'px';
                 badge.style.position = 'absolute';
 
                 // 마우스 다운으로 드래그 가능하도록 설정
